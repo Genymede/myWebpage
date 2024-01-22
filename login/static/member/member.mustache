@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4</title>
+    <link rel="stylesheet" href="../style/bootstrap.min.css">
+    <link rel="stylesheet" href="../style/main.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/sticky.css">
+    
+</head>
+
+<body>
+    <div class="row header">
+        <div class="col-10 text-black-50">
+            <h1>WELCOME
+                {{#username}}
+                    {{username}}   
+                        <a href="/member/login" class="text-light text-end">Logout</a>
+                {{/username}}
+            </h1>
+        </div>
+    </div>                           
+    <div class="row aside">
+        <div class="col-2" id="side-menu">
+            <h3>Menu</h3>
+            <ul>
+                <li>Main</li>
+                <li>Contact</li>
+                <li>About</li>
+            </ul>
+        </div>
+        <div class="col-8">
+            <div class="main-layout">
+                <div class="col-12 main-layout text-center" id="show-info">
+                    <div id="stick1">Sticky Note 1</div>
+                    <div id="stick2">Sticky Note 2</div>
+                    <div id="stick3">Sticky Note 3</div>
+                    <button id="adder" class="button" onclick="addBox()">
+                        <div> + </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../style/stycky.js"></script>
+</body> 
+
+</html>
