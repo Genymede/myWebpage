@@ -7,62 +7,64 @@
 // message[0].style.display = "None"
 
 
-var mysql = require('mysql2')
+// var mysql = require('mysql2')
 
-require('dotenv').config()
+// require('dotenv').config()
 
-var pool = mysql.createConnection({
-    user: 'root',  
-    host: 'localhost',
-    database: 'user',
-    password: "1234",
-    port: 3306,
-});
+// var pool = mysql.createConnection({
+//     user: 'root',  
+//     host: 'localhost',
+//     database: 'user',
+//     password: "1234",
+//     port: 3306,
+// });
 
 
 // router.get('/member',(req,res) =>{
 
 // pool.connect((err)=>{
 //     if(err) throw err
-let dataEX
-    console.log('Connected')
-    const sql = 'SELECT * FROM users'
-    pool.query(sql,(err,results,field)=>{
-        if(err){
-            console.log('can not query')
-        }
-        else{
-            pool.query('SELECT COUNT(details) AS cnt FROM user_info WHERE userID = 5',(err,count_results,field)=>{
+// let dataEX
+//     console.log('Connected')
+//     const sql = 'SELECT * FROM users'
+//     pool.query(sql,(err,results,field)=>{
+//         if(err){
+//             console.log('can not query')
+//         }
+//         else{
+//             pool.query('SELECT COUNT(details) AS cnt FROM user_info WHERE userID = 5',(err,count_results,field)=>{
                 
-                console.log(count_results)
-                var data = JSON.parse(count_results[0].cnt)
-                dataEX = JSON.stringify(data);
-                console.log(dataEX)
-                // n = parseInt(count_results[0].cnt)
-                // console.log(count_results[0].cnt)
-                // count_results.forEach(function (elem) { 
-                //     console.log(elem.TITLE + ' ' + elem.AUTHOR);
-                // });
-                // const data = JSON.parse(pool.json(count_results))
-                // console.log(data[0])
+//                 console.log(count_results)
+//                 var data = JSON.parse(count_results[0].cnt)
+//                 dataEX = JSON.stringify(data);
+//                 console.log(dataEX)
+//                 // n = parseInt(count_results[0].cnt)
+//                 // console.log(count_results[0].cnt)
+//                 // count_results.forEach(function (elem) { 
+//                 //     console.log(elem.TITLE + ' ' + elem.AUTHOR);
+//                 // });
+//                 // const data = JSON.parse(pool.json(count_results))
+//                 // console.log(data[0])
 
                 
-            })
-            //console.log(results)
-        }
-    })
-//})
-//})
-console.log('data = ')
+//             })
+//             //console.log(results)
+//         }
+//     })
+// //})
+// //})
+// console.log('data = ')
+
+var data = JSON.parse(results)
 
 function addBox() {
     //show-info
-    const text = 'Hello'
+    const text = 555
     console.log('addddddd')
     const box = document.createElement("div")
     box.setAttribute("id", "stick3")
-
-    const info = document.createTextNode(text)
+    
+    const info = document.createTextNode(data)
     box.appendChild(info)
 
     const newNote = document.getElementById('show-info')

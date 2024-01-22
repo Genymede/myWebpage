@@ -56,7 +56,14 @@ router.get('/member',(req,res) => {
     console.log('reload');
     const username = req.cookies.username;
     if(username){
-        res.render('member/member',{username:username})
+        //res.render('member/member',{username:username})
+        pool.query("SELECT * FROM user_info WHERE userID = 2", function(err, rows, fields) {
+            var results = []
+            rows.forEach(function(row) {
+              results.push(row)
+            });
+            res.render('member/sticky', {'results':results[0].details})
+          });
     }
     else
         res.redirect('/member/login')
