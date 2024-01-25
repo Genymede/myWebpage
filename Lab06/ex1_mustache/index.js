@@ -20,10 +20,11 @@ let root_path = path.resolve(__dirname, 'static')
 app.use(express.static(root_path))
 
 const locationRoptes = require('./router/location')
-const manufactureRoutes = require('./router/manufacture')
+//const manufactureRoutes = require('./router/manufacture')
+
 
 app.use('location', locationRoptes)
-app.use('/manufacture', manufactureRoutes)
+//app.use('/manufacture', manufactureRoutes)
 
 app.listen(3000, 'localhost', ()=> {
     console.log(`Server is running on http://localhost:${port}`)
@@ -56,9 +57,43 @@ app.get('/cal/:cal',(req,res) =>{
     a = cal[0]
     b = cal[1]
     operator = req.params['cal'].replace(a,'').replace(b,'')
-    c = calculator(a,b,operator)
-    operator = operator == 'r'?'/':operator
-    res.render('simple',{a,b,operator,c})
+
+    let msg = ''
+    var txt = ''
+
+    const promise = new Promise((resolve,reject)=>{
+        if(b == '0' && operator == 'r'){
+            reject('Devied by zero')
+        }
+        else{
+            c = calculator(a,b,operator)
+            operator = operator == 'r'?'/':operator
+            msg = a + ' ' + operator + ' ' + b + ' = ' + c
+            resolve(msg)
+            
+        }
+    }) 
+
+    promise.then(
+        result => {
+            txt = result
+            console.log(result)
+            res.send(result)
+        }, err => {
+            txt = 'Found ERROR'
+            console.error(txt)
+            res.send(txt)
+        }
+    )
+
+    promise.catch(
+        txt += ', Exception: ' + err
+    )
+
+
+    // c = calculator(a,b,operator)
+    // operator = operator == 'r'?'/':operator
+    // res.render('simple',{a,b,operator,c})
 })
 
 calculator = (a,b,operator) => {

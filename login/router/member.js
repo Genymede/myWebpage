@@ -1,4 +1,3 @@
-
 const express = require('express')
 const router = express.Router()
 const mysql = require('mysql2')
@@ -28,11 +27,25 @@ router.get('/',(req,res) => {
 })
 
 router.get('/login',(req,res) => {
-    res.render('member/login')
+    const username = req.cookies.username
+    console.log('username: ' + username)
+    if(username){
+        res.redirect('/member/member')
+    }
+    else
+        res.render('member/login')
 })
 
 router.get('/register',(req,res) => {
     res.render('member/register')
+})
+
+router.get('/add',(req,res) => {
+    const username = req.cookies.username;
+    if(username)
+        res.render('member/add',{'username':username})
+    else
+        res.render('member/login')
 })
 
 router.post('/signup',(req,res) => {
@@ -41,7 +54,7 @@ router.post('/signup',(req,res) => {
         const sql = 'INSERT INTO users(username,password) VALUE( ?, ?)' //for sql USE `user`;
         pool.query(sql, [username,md5(password)], (error, results) =>{
             if(error){
-                res.render('member/register', {msg:'Username or Password is used please change!'})
+                res.render('member/register', {msg:'Username or Password is used please change!'})  
             }
             else
                 res.redirect('/member/member')
@@ -54,42 +67,59 @@ router.post('/signup',(req,res) => {
 
 router.get('/member',(req,res) => {
     console.log('reload');
+    //console.log('username')
     const username = req.cookies.username;
     if(username){
+        
         //res.render('member/member',{username:username})
-        pool.query("SELECT * FROM user_info WHERE userID = 2", function(err, rows, fields) {
-            var results = []
+        pool.query("SELECT details FROM user_info INNER JOIN users on user_info.userID = users.userID WHERE users.username = ?  ",[username], function(err, rows, fields) {
+            var results = []  
+            console.log(results.length)
             rows.forEach(function(row) {
-              results.push(row)
+                results.push(row)
             });
-            res.render('member/sticky', {'results':results[0].details})
+            if(results.length == 0){
+                res.render('member/member', {'username':username})
+                console.log('1 ' + username)
+            }
+            else{
+                res.render('member/member', {'username':username,'results':results})
+                console.log('2 ' + username)
+            }
+            //console.log(results)
           });
     }
     else
         res.redirect('/member/login')
+    
 })
 
 router.post('/verify', (req,res) => {
-    const {username,password} = req.body
-    const sql = 'SELECT * FROM  users WHERE username = ? and password = ?' //for sql USE `user`;
-    pool.query(sql, [username,md5(password)], (error, results) =>{
-        console.error(password)
-        console.error(md5(password))
-        if(error){
-            console.error(error)
-            res.render('member/login')
-        }
-        else{
-            console.log('login success')
-            if(results.length == 0){
-                res.render('member/login', {msg:'Wrong Username or Password'})
+    const {username,password} = req.body    
+    const user_cookie = req.cookies.username
+    if(!user_cookie){
+        const sql = 'SELECT * FROM  users WHERE username = ? and password = ?' //for sql USE `user`;
+        pool.query(sql, [username,md5(password)], (error, results) =>{
+            console.error(password)
+            console.error(md5(password))
+            if(error){
+                console.error(error)
+                res.render('member/login')
             }
             else{
-                res.cookie('username',username,{maxAge:900000})
-                res.redirect('/member/member')
+                console.log('login success')
+                if(results.length == 0){
+                    res.render('member/login', {msg:'Wrong Username or Password'})
+                }
+                else{
+                    res.cookie('username',username,{maxAge:900000})
+                    res.redirect('/member/member')
+                }
             }
-        }
-    })
+        })
+    }
+    else
+        res.redirect('/member/login')
 })
 
 router.get('/all',(req,res) =>{
@@ -106,8 +136,11 @@ router.get('/all',(req,res) =>{
 
 router.get('/logout',(req,res) =>{
     const username = req.cookies.username;
+    console.log('llllll')
     if(username){
-        res.clearCookie('username')   
+            res.clearCookie('username')  
+            //res.cookie('username')
+            
     }
     res.redirect('/member/login')
 })

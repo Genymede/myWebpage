@@ -29,6 +29,6 @@ app.get('/',(req,res) =>{
     res.send("HHHHH")
     res.end()
 })
-app.listen(port, ()=> {
+app.listen(port,'0.0.0.0', ()=> {
     console.log(`Server is running on http://localhost:${port}/member/login`)
 })
