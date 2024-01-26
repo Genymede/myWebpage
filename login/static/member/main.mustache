@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapter 4</title>
     <link rel="stylesheet" href="../style/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../style/main.css">
     <link rel="stylesheet" href="../style/sticky.css">
 
@@ -22,14 +23,15 @@
             </h1>
         </div>
     </div>
+    
     <button class="btn btn-danger"
             data-bs-toggle="offcanvas"
             data-bs-target="#side-menu"
     >show menu</button>
-    <div class="offcanvas offcanvas-start" id="side-menu">
+    <div class="offcanvas offcanvas-size-md offcanvas-start" id="side-menu">
         <div calss="offcanvas-header">
             <div class="offcanvas-title">MENU</div>
-            <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+            <button class="btn-close text-right" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
             <ul>
@@ -41,9 +43,9 @@
     </div>
     
     <div class="row aside" id="show-info">
-        
+        <div class="col-2"></div>
         <div class="col-8">
-            <div class="main-layout">
+            <!--<div class="main-layout">
                 <div class="col-11 main-layout text-center">
                     {{#results}}
                         <div id="stick1">
@@ -52,13 +54,36 @@
                             {{details}}
                         </div>
                     {{/results}}
-                    <!--<div id="stick2">Sticky Note 2</div>
-                    <div id="stick3">Sticky Note 3</div>-->
-                    {{! <div id="stick1">sticky 2 </div> }}
+                    
                     
                 </div>
+            </div>-->
+            <!--<div class="d-flex main-layout">
+                {{#results}}
+                <div class="card col-11 main-layout text-center">
+                    <img class="card-img-top" src="https://3fc4ed44-3fbc-419a-97a1-a29742511391.selcdn.net/coub_storage/coub/simple/cw_timeline_pic/39efe3ad455/ab51f9bb072e70f5b0bc8/1529541968_image.jpg">
+                    <div calss="card-body" id="stick1">
+                        <h2 class="post-head">{{username}}</h2>
+                        <br>
+                        {{details}}
+                    </div>
+                </div>
+                {{/results}}
             </div>
-
+        </div>-->
+        <div class="main-layout">
+            {{#results}}
+                <div class="card main-layout text-center" id="stick1" style="width: 18rem;">
+                    <img class="card-img-top" src="https://i.pinimg.com/736x/e6/37/de/e637de14f3e137b0e4e213ef4ff0c7d5.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{username}}</h5>
+                            <div style="height: 10em;">
+                                <p class="card-text">{{details}}</p>
+                            </div>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            {{/results}}
         </div>
         {{! <button class="adder">
             <div> + </div>
