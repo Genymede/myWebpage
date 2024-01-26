@@ -22,16 +22,26 @@
             </h1>
         </div>
     </div>
-    <div class="row aside" id="show-info">
-        <div class="col-2" id="side-menu">
-            <h3>Menu</h3>
+    <button class="btn btn-danger"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#side-menu"
+    >show menu</button>
+    <div class="offcanvas offcanvas-start" id="side-menu">
+        <div calss="offcanvas-header">
+            <div class="offcanvas-title">MENU</div>
+            <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
             <ul>
                 <li>Main</li>
                 <li>Contact</li>
                 <li>About</li>
             </ul>
-
         </div>
+    </div>
+    
+    <div class="row aside" id="show-info">
+        
         <div class="col-8">
             <div class="main-layout">
                 <div class="col-11 main-layout text-center">
@@ -45,9 +55,7 @@
                     <!--<div id="stick2">Sticky Note 2</div>
                     <div id="stick3">Sticky Note 3</div>-->
                     {{! <div id="stick1">sticky 2 </div> }}
-                    <button class="adder" onclick="window.location.href='/member/add';">
-                        Add info
-                    </button>
+                    
                 </div>
             </div>
 
@@ -55,9 +63,7 @@
         {{! <button class="adder">
             <div> + </div>
         </button> }}
-        <button class="adder" onclick="window.location.href='/member/add';">
-            Add info
-        </button>
+        
     </div>
     <script src="../style/stycky.js"></script>
 </body>

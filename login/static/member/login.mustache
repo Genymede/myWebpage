@@ -72,7 +72,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../style/style.css"> </head>
+    <link rel="stylesheet" href="../style/style-login-signup.css"> </head>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <body>
@@ -96,9 +96,12 @@
 
             <button type="submit" class="btn">Login</button>
             <div class="register-link">
-            <p>Don't have an account? <a href="/member/register">REGISTER</a></p>
-             </div>
+                <p>Don't have an account? <a href="/member/register">REGISTER</a></p>
+            </div>
         </form>
+        <div class="mb-3 text-danger register-link">
+            {{msg}}
+        </div>
     </div>
 
 </body>

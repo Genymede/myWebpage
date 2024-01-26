@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
   `userID` int DEFAULT NULL,
   `details` varchar(500) DEFAULT NULL,
+  `detail_time` timestamp NULL DEFAULT NULL,
   KEY `userID` (`userID`),
   CONSTRAINT `user_info_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -36,7 +37,7 @@ CREATE TABLE `user_info` (
 
 LOCK TABLES `user_info` WRITE;
 /*!40000 ALTER TABLE `user_info` DISABLE KEYS */;
-INSERT INTO `user_info` VALUES (4,NULL),(3,'41b9b72eec237818c6feaa61bf288435'),(1,'5f4dcc3b5aa765d61d8327deb882cf99'),(5,NULL),(2,'9fb16387931c738a68440fc0c1735efe'),(3,'Stella is mine'),(3,'I need mother'),(2,'f9e51ce4e6afe40373b439d2a79baf68');
+INSERT INTO `user_info` VALUES (4,NULL,NULL),(3,'Now I Am Become Death, the Destroyer of Worlds.','2000-11-29 17:00:00'),(1,'5f4dcc3b5aa765d61d8327deb882cf99','2015-12-12 08:56:20'),(5,NULL,NULL),(2,'9fb16387931c738a68440fc0c1735efe','2000-12-12 07:45:15'),(3,'Stella is mine','2024-11-29 05:56:59'),(3,'I need mother','2010-11-29 12:40:12'),(2,'f9e51ce4e6afe40373b439d2a79baf68','1999-01-01 09:30:11');
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +55,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`userID`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `password` (`password`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,4 +77,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-21 16:00:49
+-- Dump completed on 2024-01-26 13:27:03

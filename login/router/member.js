@@ -95,14 +95,42 @@ router.get('/member',(req,res) => {
     
 })
 
+router.get('/main',(req,res) => {
+    //console.log('reload');
+    //console.log('username')
+    const username = req.cookies.username;  
+    if(username){
+        const sql = "SELECT * FROM user_info INNER JOIN users ON user_info.userID = users.userID WHERE details is not null ORDER BY detail_time DESC"
+        //res.render('member/member',{username:username})
+        pool.query(sql,function(err, rows, fields) {
+            var results = []  
+            console.log(results.length)
+            rows.forEach(function(row) {
+                results.push(row)
+            });
+            if(results.length == 0){
+                res.render('member/main', {'username':username})
+                console.log('1 ' + username)
+            }
+            else{
+                res.render('member/main', {'username':username,'results':results})
+                console.log('2 ' + username)
+                //console.log('2 ' + results[0].userName)
+            }
+            //console.log(results)
+          });
+    }
+    else
+        res.redirect('/member/login')
+    
+})
+
 router.post('/verify', (req,res) => {
     const {username,password} = req.body    
     const user_cookie = req.cookies.username
     if(!user_cookie){
         const sql = 'SELECT * FROM  users WHERE username = ? and password = ?' //for sql USE `user`;
         pool.query(sql, [username,md5(password)], (error, results) =>{
-            console.error(password)
-            console.error(md5(password))
             if(error){
                 console.error(error)
                 res.render('member/login')
@@ -114,7 +142,7 @@ router.post('/verify', (req,res) => {
                 }
                 else{
                     res.cookie('username',username,{maxAge:900000})
-                    res.redirect('/member/member')
+                    res.redirect('/member/main')
                 }
             }
         })
