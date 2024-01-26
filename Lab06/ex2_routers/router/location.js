@@ -142,7 +142,7 @@ router.post('/add', (req,res) => {
     pool.query(sql, [location_name,location_id], (error, results) =>{
         if(error){
             return res.status(500).json({error: error.message})
-        }   
+        }
         res.redirect('/location/' + results.insertId)
     })
 })

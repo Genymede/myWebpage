@@ -26,7 +26,7 @@ app.use('/member', locationRoutes)
 //app.use('/member', manufactureRoutes) 
 //app.use('manufacture', manufactureRoutes)
 app.get('/',(req,res) =>{   
-    res.send("HHHHH")
+    res.redirect('/member/login')
     res.end()
 })
 app.listen(port,'0.0.0.0', ()=> {

@@ -22,8 +22,9 @@ router.use(bdyParser.urlencoded({extended:true}))
 router.use(bdyParser.json())
 
 router.get('/',(req,res) => {
-    res.send('Location Route')
-    res.end()
+    res.redirect('/member/login')
+    // res.send('Location Route')
+    // res.end()
 })
 
 router.get('/login',(req,res) => {
