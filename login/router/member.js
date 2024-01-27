@@ -49,6 +49,12 @@ router.get('/add',(req,res) => {
         res.render('member/login')
 })
 
+router.post('/send',(req,res) => {
+    const {details,time,image} = req.body
+    const sql = 'INSERT INTO user_info (details,password) VALUE( ?, ?)'
+    res.render('member/member')
+})
+
 router.post('/signup',(req,res) => {
     const {username,password,confirmpassword} = req.body
     if(password == confirmpassword){

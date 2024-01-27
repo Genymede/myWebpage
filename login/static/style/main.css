@@ -48,6 +48,22 @@ li:hover{
     border-radius: 10px;
 }
 
+.offcanvas-menu{
+    width: 200px;   
+    position: fixed;
+}
+
+
+
+#posted-link{
+    color: black;
+}
+#posted-link:hover{
+    color: black;
+}
+
+
+
 @keyframes animate{
     0%{
         border-radius: 3px;
