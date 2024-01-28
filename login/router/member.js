@@ -16,7 +16,7 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
     port: 3306,
-})
+})  
 
 router.use(bdyParser.urlencoded({extended:true}))
 router.use(bdyParser.json())
@@ -34,7 +34,7 @@ router.get('/login',(req,res) => {
         res.redirect('/member/member')
     }
     else
-        res.render('member/login')
+        res.render('member/login')  
 })
 
 router.get('/register',(req,res) => {
@@ -187,7 +187,7 @@ router.post('/send', (req,res) => {
                         if(err){
                             console.log(err)
                         }
-                        else{   
+                        else{
                             res.redirect('/member/member')
                         }
                     })
