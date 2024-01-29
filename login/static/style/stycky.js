@@ -1,5 +1,5 @@
-const IDchange = document.getElementById('stick1')
-IDchange.id = 'stick2'
+// const IDchange = document.getElementById('stick1')
+// IDchange.id = 'stick2'
 
 // function addBox() {
 //     //show-info
@@ -21,3 +21,30 @@ IDchange.id = 'stick2'
 //     })
     
 // }
+
+// var aTags = document.getElementsByTagName("p")
+// var searchText = 'Found'
+// var found
+
+// for (var i = 0; i < aTags.length; i++) {
+//     if (aTags[i].textContent == searchText) {
+//         found = aTags[i];
+//         break;
+//     }
+// }
+
+// console.log(found)
+// var text = found.innerText
+// console.log(text)
+
+// var statusID = document.getElementById('status-parser')
+// console.log(statusID.innerText)
+
+//var IDchange = document.querySelectorAll("#stick2")
+//IDchange.id = 'stick1'
+// for(var i=0;i<IDchange.length;i++){
+//     if(IDchange[i].getElementsByClassName('stat')){
+//         IDchange[i].id = 'stick1'
+//     }
+// }
+

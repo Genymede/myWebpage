@@ -116,7 +116,7 @@
 <body>
     <div class="wrapper" style="width: 650px;">
         <h2 class="text-center">Sign Up</h2>
-        <form>
+        <form action="/member/signup" id="login-form" method="post">
             <div class="form-row">
                 <div class="input-box form-group col-md-6">
                     <label for="username">Username:</label>
@@ -124,13 +124,13 @@
                 </div>
                 <div class="input-box form-group col-md-6">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" name="emil" id="email" placeholder="Email" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-box form-group col-md-4">
-                    <label for="student_id">Student ID:</label>
-                    <input type="text" class="form-control" name="student_id" id="student_id" placeholder="Student ID" required>
+                    <label for="studentid">Student ID:</label>
+                    <input type="text" class="form-control" name="studentid" id="studentid" placeholder="Student ID" required>
                 </div>
                 <div class="input-box form-group col-md-4">
                     <label for="firstname">First name:</label>
@@ -139,6 +139,18 @@
                 <div class="input-box form-group col-md-4">
                     <label for="lastname">Last name:</label>
                     <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last name" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-box form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-box form-group">
+                    <label for="x">Confirm password:</label>
+                    <input type="password" class="form-control" name="confirmpassword" id="x" placeholder="confirmpassword">
                 </div>
             </div>
             <div class="form-row">
@@ -161,13 +173,12 @@
                 <div class="input-box form-group ">
                     <label for="facebook">Facebook:</label>
                     <input type="text" class="form-control" name="facebook" id="facebook" placeholder="Facebook" >
-                    <i class='bx bxs-lock-alt'></i>
                 </div>
             </div>
             <div class="form-row">
                 <div class="input-box form-group">
-                    <label for="insatgram">Instagram:</label>
-                    <input type="text" class="form-control" name="insatgram" id="insatgram" placeholder="Instagram" >
+                    <label for="instagram">Instagram:</label>
+                    <input type="text" class="form-control" name="instagram" id="instagram" placeholder="Instagram" >
                 </div>
             </div>
             <div class="form-row">
@@ -177,7 +188,6 @@
                 </div>
             </div>
                 <button type="submit" class="btn btn-primary">Sign up</button>
-            
             
         </form>
         <div class="mb-3 text-danger">

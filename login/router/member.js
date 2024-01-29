@@ -56,12 +56,25 @@ router.get('/add',(req,res) => {
 // })
 
 router.post('/signup',(req,res) => {
-    const {username,password,confirmpassword} = req.body
+    const {username,email,studentid,firstname,lastname,password,confirmpassword,faculty,major,phonenumber,facebook,instagram,x} = req.body
+    console.log(username)
+    console.log(email)
+    console.log(studentid)
+    console.log(firstname)
+    console.log(lastname)
+    console.log(password)
+    console.log(faculty)
+    console.log(major)
+    console.log(phonenumber)
+    console.log(facebook)
+    console.log(instagram)
+    console.log(x)
     if(password == confirmpassword){
-        const sql = 'INSERT INTO users(username,password) VALUE( ?, ?)' //for sql USE `user`;
-        pool.query(sql, [username,md5(password)], (error, results) =>{
+        const sql = 'INSERT INTO users(username,email,studentID,firstname,lastname,password,faculty,major,phonenumber,facebook,instagram,x) VALUE(? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? )' //for sql USE `user`;
+        pool.query(sql, [username,email,studentid,firstname,lastname,md5(password),faculty,major,phonenumber,facebook,instagram,x], (error, results) =>{
             if(error){
-                res.render('member/register', {msg:'Username or Password is used please change!'})  
+                console.log('somethings wrong');
+                //res.render('member/register', {msg:'Username or Password is used please change!'})  
             }
             else
                 res.redirect('/member/member')
@@ -79,19 +92,19 @@ router.get('/member',(req,res) => {
     if(username){
         
         //res.render('member/member',{username:username})
-        pool.query("SELECT details FROM user_info INNER JOIN users on user_info.userID = users.userID WHERE users.username = ?  ",[username], function(err, rows, fields) {
-            var results = []  
+        pool.query("SELECT * FROM user_info INNER JOIN users on user_info.userID = users.userID WHERE users.username = ?  ORDER BY dataID desc",[username], function(err, rows, fields) {
+            var results = [] 
             console.log(results.length)
             rows.forEach(function(row) {
                 results.push(row)
             });
             if(results.length == 0){
                 res.render('member/member', {'username':username})
-                console.log('1 ' + username)
+                //console.log('1 ' + username)
             }
             else{
                 res.render('member/member', {'username':username,'results':results})
-                console.log('2 ' + username)
+                //console.log('2 ' + username)
             }
             //console.log(results)
           });
@@ -116,11 +129,11 @@ router.get('/main',(req,res) => {
             });
             if(results.length == 0){    
                 res.render('member/main', {'username':username})
-                console.log('1 ' + username)
+                //console.log('1 ' + username)
             }
             else{
                 res.render('member/main', {'username':username,'results':results})
-                console.log('2 ' + username)
+                //console.log('2 ' + username)
                 //console.log('2 ' + results[0].userName)
             }
             //console.log(results)
@@ -160,57 +173,69 @@ router.post('/verify', (req,res) => {
 router.post('/send', (req,res) => {
     const {userID,details,detail_time} = req.body
     const user_cookie = req.cookies.username
-    //console.log(user_cookie)
+    //console.log(res.cookie('username'))
+    console.log('0000')
     if(user_cookie){
-        const sql = 'SELECT user_info.userID AS ID FROM user_info INNER JOIN users ON user_info.userID = users.userID WHERE username = ?' //for sql USE `user`;
+        const sql = 'SELECT userID AS ID FROM users WHERE username = ?' //for sql USE `user`;
         pool.query(sql,[user_cookie], (error, results) => {
             console.log('222222')
-            if(error){
-                console.error(error)
-                res.render('member/main')
-            }
-            else{
-                console.log('add success')
-                if(results.length == 0){
-                    console.log(results[0].ID)
+            console.log(results[0].ID)
+            const insert = 'INSERT INTO user_info(userID,details,detail_time) VALUE (? ,?, ?)'
+            pool.query(insert,[results[0].ID,details,detail_time],(err,reslt) => {
+                if(err){
+                    console.log('Insert ERROR')
                     res.redirect('/member/member')
                 }
                 else{
-                    console.log(results[0].ID)
-                    console.log(details)
-                    console.log(detail_time)
-                    console.log(detail_time.replace('T',' '))
-                    const time = detail_time.replace('T',' ')
-                    //res.cookie('username',user_cookie,{maxAge:900000})
-                    const insert = 'INSERT INTO user_info(userID,details,detail_time) VALUE (?,?,?)'
-                    pool.query(insert,[results[0].ID,details,time],(err,result) => {
-                        if(err){
-                            console.log(err)
-                        }
-                        else{
-                            res.redirect('/member/member')
-                        }
-                    })
+                    console.log('Insert success')
+                    res.redirect('/member/member')
                 }
-            }
+            })
         })
-        // const sql = 'INSERT INTO user_info(userID,details,detail_time)' //for sql USE `user`;
-        // pool.query(sql, [username,md5(password)], (error, results) => {
-        //     if(error){
-        //         console.error(error)
-        //         res.render('member/login')
-        //     }
-        //     else{
-        //         console.log('login success')
-        //         if(results.length == 0){
-        //             res.render('member/login', {msg:'Wrong Username or Password'})
-        //         }
-        //         else{
-        //             res.cookie('username',username,{maxAge:900000})
-        //             res.redirect('/member/main')
-        //         }
-        //     }
-        // })
+    }
+    else
+        res.redirect('/member/login')
+})
+
+router.post('/delete', (req,res) => {
+    const {dataID} = req.body
+    const user_cookie = req.cookies.username
+    //console.log(res.cookie('username'))
+    console.log(dataID)
+    console.log('0000')
+    if(user_cookie){
+        const sql = 'DELETE FROM user_info WHERE dataID = ?' //for sql USE `user`;
+        pool.query(sql,[dataID], (error, results) => {
+            if(error){
+                console.log('cannot delete')
+            }
+            else{
+                console.log('deleted')
+                res.redirect('/member/member')
+            }       
+        })
+    }
+    else
+        res.redirect('/member/login')
+})
+
+router.post('/update', (req,res) => {
+    const {dataID,details,status} = req.body
+    const user_cookie = req.cookies.username
+    //console.log(res.cookie('username'))
+    console.log(parseInt(dataID))
+    console.log('0000')
+    if(user_cookie){
+        const sql = 'UPDATE user_info SET details = ? , status = ? WHERE dataID = ?' //for sql USE `user`;
+        pool.query(sql,[details,status,dataID], (error, results) => {
+            if(error){
+                console.log('cannot update')
+            }
+            else{
+                console.log('updated')
+                res.redirect('/member/member')
+            }       
+        })
     }
     else
         res.redirect('/member/login')
