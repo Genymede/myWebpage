@@ -53,7 +53,10 @@ li:hover{
     position: fixed;
 }
 
-
+#show-image{
+    height: 10em;
+    object-fit: cover;
+}
 
 #posted-link{
     color: black;

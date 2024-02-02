@@ -10,7 +10,7 @@ const httpServer = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 
 httpServer.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+  console.log(`Server is listening on http://localhost:${PORT}`);
 });
 
 const multer = require("multer");
@@ -31,7 +31,9 @@ app.post("/upload",
   upload.single("file" /* name attribute of <file> element in your form */),
   (req, res) => {
     const tempPath = req.file.path;
-    const targetPath = path.join(__dirname, "./uploads/image.png");
+    console.log(tempPath)
+    console.log(tempPath.split('\\path\\to\\temporary\\directory\\to\\store\\uploaded\\files\\')[1])
+    const targetPath = path.join(__dirname, "./uploads/image5555.png");
 
     if ((path.extname(req.file.originalname).toLowerCase() === ".png")||(path.extname(req.file.originalname).toLowerCase() === ".jpg")) {
       fs.rename(tempPath, targetPath, err => {
@@ -41,8 +43,9 @@ app.post("/upload",
           .status(200)
           .contentType("text/plain")
           .end("File uploaded!");
+        
       });
-      res.render('./uploads/image.png')
+      
     } else {
       fs.unlink(tempPath, err => {
         if (err) return handleError(err, res);
@@ -61,7 +64,7 @@ app.post("/upload",
 // });
 
 app.get("/image.png", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/renderImage.html"));
+    res.sendFile(path.join(__dirname, "./uploads/image5555.png"));
 });
 
 // put the HTML file containing your form in a directory named "public" (relative to where this script is located)

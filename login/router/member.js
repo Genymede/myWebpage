@@ -5,8 +5,22 @@ const bdyParser = require('body-parser')
 const path = require('path')
 const cookie = require('cookie-parser')
 const md5 = require('md5')
+const fs = require("fs");
+const multer = require("multer");
+
+const handleError = (err, res) => {
+  res
+    .status(500)
+    .contentType("text/plain")
+    .end("Oops! Something went wrong!");
+};
 
 require('dotenv').config()  
+
+const upload = multer({
+    dest: "/path/to/temporary/directory/to/store/uploaded/files"
+    // you might also want to set some limits: https://github.com/expressjs/multer#limits
+});
 
 router.use(cookie())
 
@@ -49,14 +63,9 @@ router.get('/add',(req,res) => {
         res.render('member/login')
 })
 
-// router.post('/send',(req,res) => {
-//     const {details,time,image} = req.body
-//     const sql = 'INSERT INTO user_info (details,password) VALUE( ?, ?)'
-//     res.render('member/member')
-// })
-
-router.post('/signup',(req,res) => {
-    const {username,email,studentid,firstname,lastname,password,confirmpassword,faculty,major,phonenumber,facebook,instagram,x} = req.body
+router.post('/signup',upload.single("profile" /* name attribute of <file> element in your form */),(req,res) => {
+    const {profile,username,email,studentid,firstname,lastname,password,confirmpassword,faculty,major,phonenumber,facebook,instagram,x} = req.body
+    console.log(profile)
     console.log(username)
     console.log(email)
     console.log(studentid)
@@ -69,20 +78,50 @@ router.post('/signup',(req,res) => {
     console.log(facebook)
     console.log(instagram)
     console.log(x)
-    if(password == confirmpassword){
-        const sql = 'INSERT INTO users(username,email,studentID,firstname,lastname,password,faculty,major,phonenumber,facebook,instagram,x) VALUE(? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? )' //for sql USE `user`;
-        pool.query(sql, [username,email,studentid,firstname,lastname,md5(password),faculty,major,phonenumber,facebook,instagram,x], (error, results) =>{
-            if(error){
-                console.log('somethings wrong');
-                //res.render('member/register', {msg:'Username or Password is used please change!'})  
-            }
-            else
-                res.redirect('/member/member')
-        })
-    }
-    else{
-        res.render('member/register', {msg:'Please coonfirm your password again!'})
-    }
+
+    const tempPath = req.file.path;
+    console.log(tempPath)
+    const thispath = tempPath.split('\\path\\to\\temporary\\directory\\to\\store\\uploaded\\files\\')[1]
+    console.log(thispath)
+    
+    const targetPath = path.join(__dirname, "./img/" + username + thispath + ".jpg");
+    console.log(targetPath)
+
+    if ((path.extname(req.file.originalname).toLowerCase() === ".png")||(path.extname(req.file.originalname).toLowerCase() === ".jpg")) {
+        fs.rename(tempPath, targetPath, err => {
+          if (err) return handleError(err, res);
+          res
+            .status(200)
+            .contentType("text/plain")
+            .end("File uploaded!");
+          
+        });
+        
+      } else {
+        fs.unlink(tempPath, err => {
+          if (err) return handleError(err, res);
+  
+          res
+            .status(403)
+            .contentType("text/plain")
+            .end("Only .png files are allowed!");
+        });
+      }
+
+    // if(password == confirmpassword){
+    //     const sql = 'INSERT INTO users(username,email,studentID,firstname,lastname,password,faculty,major,phonenumber,facebook,instagram,x) VALUE(? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? )' //for sql USE `user`;
+    //     pool.query(sql, [username,email,studentid,firstname,lastname,md5(password),faculty,major,phonenumber,facebook,instagram,x], (error, results) =>{
+    //         if(error){
+    //             console.log('somethings wrong');
+    //             //res.render('member/register', {msg:'Username or Password is used please change!'})  
+    //         }
+    //         else
+    //             res.redirect('/member/member')
+    //     })
+    // }
+    // else{
+    //     res.render('member/register', {msg:'Please coonfirm your password again!'})
+    // }
 })
 
 router.get('/member',(req,res) => {
@@ -132,6 +171,7 @@ router.get('/main',(req,res) => {
                 //console.log('1 ' + username)
             }
             else{
+                //console.log(results)
                 res.render('member/main', {'username':username,'results':results})
                 //console.log('2 ' + username)
                 //console.log('2 ' + results[0].userName)
@@ -234,7 +274,7 @@ router.post('/update', (req,res) => {
             else{
                 console.log('updated')
                 res.redirect('/member/member')
-            }       
+            }
         })
     }
     else
@@ -243,6 +283,18 @@ router.post('/update', (req,res) => {
 
 router.get('/all',(req,res) =>{
     const sql = 'SELECT * FROM users'
+    pool.query(sql,(error, results,field) =>{
+        if(error){
+            console.error(error)
+        }
+        else{
+           res.json(results)
+        }
+    })
+})
+
+router.get('/all_info',(req,res) =>{
+    const sql = 'SELECT * FROM user_info'
     pool.query(sql,(error, results,field) =>{
         if(error){
             console.error(error)
@@ -263,6 +315,42 @@ router.get('/logout',(req,res) =>{
     }
     res.redirect('/member/login')
 })
+
+router.post("/upload",
+    upload.single("file" /* name attribute of <file> element in your form */),
+    (req, res) => {
+    const username = req.cookies.username
+    const tempPath = req.file.path;     
+    console.log(tempPath)
+    console.log(tempPath.split('\\path\\to\\temporary\\directory\\to\\store\\uploaded\\files\\')[1])
+    const filename = username + tempPath.split('\\path\\to\\temporary\\directory\\to\\store\\uploaded\\files\\')[1]
+    filename.split(' ')
+
+    const targetPath = path.join(__dirname, "./uploads/" + md5(filename) + ".jpg");
+
+    if ((path.extname(req.file.originalname).toLowerCase() === ".png")||(path.extname(req.file.originalname).toLowerCase() === ".jpg")) {
+        fs.rename(tempPath, targetPath, err => {
+        if (err) return handleError(err, res);
+
+        res
+            .status(200)
+            .contentType("text/plain")
+            .end("File uploaded!");
+        
+        });
+        
+    } else {
+        fs.unlink(tempPath, err => {
+        if (err) return handleError(err, res);
+
+        res
+            .status(403)
+            .contentType("text/plain")
+            .end("Only .png files are allowed!");
+        });
+    }
+    }
+);
 
 module.exports = router
 
