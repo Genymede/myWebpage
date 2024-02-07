@@ -22,8 +22,8 @@
                     <div class="preview">
                         <img id="show-profile" src="../img/prof2.jpg">
                     </div>
-                    <label for="profile">Profile image</label>
-                    <input type="file" name="profile" id="profile" accept="image/*" onchange="showPreview(event);">
+                    <label for="profile">Upload profile</label>
+                    <input type="file" name="profile" value="D:\65021420\Lab06\login\static\img\prof2.jpg" id="profile" accept="image/*" onchange="showPreview(event);">
                 </div>
             </div>
             <div class="form-row">
@@ -109,6 +109,7 @@
             {{msg}}
         </div>
     </div>
+    <script>document.setdefault.submit();</script>
     <script type="text/javascript">
         function showPreview(event) {
             if (event.target.files.length > 0) {

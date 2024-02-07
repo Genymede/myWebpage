@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4</title>
+    <link rel="stylesheet" href="../style/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../style/main.css">
+    <link rel="stylesheet" href="../style/sticky.css">
+
+</head>
+
+<body>
+    <div class="row header" style="background-color: #8d38c9; height:150px;">
+        <div class="col-2">
+            <a href="/member/main"><img class="logo" src="../img/nerv.png"></a>
+        </div>
+        <div class="col-10">
+            <h1>UP LOST AND FOUND</h1>
+        </div>
+    </div>
+    
+
+    <div class="row aside">
+        <div class="col-2" id="side-menu"></div>
+        <div class="col-8">
+            <div class="main-layout">
+                <div class="row">
+                    <div class="container mt-5">
+                        <form enctype="multipart/form-data" action="/member/userInfoUpdate" method="post">
+                            <input type="hidden" id="username" name="username" value="{{#results}}{{username}}{{/results}}"
+                                required>
+                            <input type="hidden" id="dataID" name="dataID" value="{{#results}}{{dataID}}{{/results}}"
+                                required>
+                            <div class="form-input">
+                                <div class="preview">
+                                    <img id="show-image" src="/{{#results}}{{image}}{{/results}}">
+                                </div>
+                                <label for="dataImage">Update image</label>
+                                <input type="file" name="dataImage" id="dataImage" accept="image/*"
+                                    onchange="showPreview(event);">
+                            </div>
+                            <div class="mb-3">
+                                <label for="details">Details</label>
+                                <textarea type="text-input" class="form-control" id="details" name="details"
+                                    style="height:10em;">{{#results}}{{details}}{{/results}}</textarea>
+                            </div>
+                            <select name="status" id="status">
+                                <option selected>Found</option>
+                                <option>Returned</option>
+                                <option>Lost</option>
+                            </select>
+                            <button type="submit" class="btn btn-danger" value="Submit">Update</button>    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../style/stycky.js"></script>
+    <script type="text/javascript">
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("show-image");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+        
+    </script>
+</body>
+
+</html>
+<!--<form action="/member/sendUpdate" enctype="multipart/form-data" method="post">
+                            <div class="form-input">
+                                <input type="hidden" id="dataID" name="dataID" value="{{#results}}{{dataID}}{{/results}}"required>
+                                <div class="preview md-3">
+                                    <img id="show-image" src="{{#results}}{{image}}{{/results}}">
+                                </div>
+                                <label for="dataImage">Upload image</label>
+                                <input type="file" name="dataImage" accept="image/*" onchange="showPreview(event);">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="details">Details</label>
+                                <textarea type="text-input" class="form-control" id="details" name="details"
+                                    style="height:10em;" required>{{#results}}{{details}}{{/results}}</textarea>
+                            </div>
+                            <select name="status" id="status">
+                                <option selected>Found</option>
+                                <option>Returned</option>
+                                <option>Lost</option>
+                            </select>
+                            {{! <div class="mb-3">
+                                <label for="detail_time" id="detail_time">Time:</label>
+                                <input type="datetime-local" class="form-control" name="detail_time" id="detail_time"
+                                    step="2" required>
+                            </div> }}
+                            <button type="submit" class="btn btn-danger" value="Submit">Submit</button>
+                        </form>-->

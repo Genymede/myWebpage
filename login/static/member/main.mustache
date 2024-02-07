@@ -9,91 +9,126 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../style/main.css">
     <link rel="stylesheet" href="../style/sticky.css">
 
 </head>
 
 <body>
-    <div class="row header">
-        <div class="col-10 text-black-50">
-            <h1>WELCOME
-                {{#username}}
-                    {{.}}
-                    
-                {{/username}}
-            </h1>
+    <div class="row header" style="background-color: #8d38c9; height:150px;">
+        <div class="col-2">
+            <img class="logo" src="../img/nerv.png" alt="logo">
+        </div>
+        <div class="col-10">
+            <h1>UP LOST AND FOUND</h1>
         </div>
     </div>
+    <nav class="navbar navbar-light " style="background-color: #eba800;">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-menu"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <form class="d-flex">
+                <input class="form-control me-2" id="search" type="search" placeholder="Search" aria-label="Search"
+                    style="border-radius: 40px;">
+                <button class="btn btn-outline-dark" type="submit">Search</button>
 
-    <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu">show menu</button>
+            </form>
+        </div>
+    </nav>
+    <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
     <div class="offcanvas offcanvas-menu offcanvas-start" tabindex="-1" id="side-menu" aria-labelledby="side-menu">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="/member/member"><img style="border-radius:50%;" id="user-image" src="/{{userImage}}"
+                            alt="profile"></a>
+                </div>
+                <div class="col-md-6 text-black-50 text-end">
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <h3 style="margin: 10px;">{{#username}}{{.}}{{/username}}</h3>
+            </div>
+
         </div>
         <div class="offcanvas-body">
-            <div>
-                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images,
-                lists, etc.
-            </div>
-            <li><a class="dropdown-item" href="/member/member">Your Account</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="/member/logout">Log out</a></li> 
+            <button class="menu-button btn btn-danger" onclick="window.location.href='/member/member'">Your
+                Account</button>
+            <button class="menu-button btn btn-danger" href="#">Another action</button>
+            <button class="menu-button btn btn-danger" onclick="window.location.href='/member/logout'">Log out</button>
         </div>
     </div>
 
+    <!--เนื้อหาาาาาาาาาาา-->
     <div class="row aside" id="show-info">
         <div class="col-2"></div>
         <div class="col-8">
-            <!--<div class="main-layout">
-                <div class="col-11 main-layout text-center">
-                    {{#results}}
-                        <div id="stick1">
-                            <h2 class="post-head">{{username}}</h2>
-                            <br>
-                            {{details}}
-                        </div>
-                    {{/results}}
-                    
-                    
-                </div>
-            </div>-->
-            <!--<div class="d-flex main-layout">
-                {{#results}}
-                <div class="card col-11 main-layout text-center">
-                    <img class="card-img-top" src="https://3fc4ed44-3fbc-419a-97a1-a29742511391.selcdn.net/coub_storage/coub/simple/cw_timeline_pic/39efe3ad455/ab51f9bb072e70f5b0bc8/1529541968_image.jpg">
-                    <div calss="card-body" id="stick1">
-                        <h2 class="post-head">{{username}}</h2>
-                        <br>
-                        {{details}}
-                    </div>
-                </div>
-                {{/results}}
-            </div>
-        </div>-->
             <div class="main-layout">
                 {{#results}}
-                    <a href="#" id="posted-link">
-                        <div class="card main-layout text-center" id="stick1" style="width: 18rem;">
-                            <img class="card-img-top" id="show-image" src="/{{image}}" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">{{username}}</h5>
-                                <div>
-                                    <p class="card-text text-center" style="height: 10em;">{{details}}</p>
-                                    <p class="card-text text-buttom">{{status}}</p>
-                                </div>
+                    <div class="card main-layout text-center" id="stick2" style="width: 18rem;">
+                        <img class="card-img-top img" id="show-image" src="/{{image}}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title username">{{username}}</h5>
+                            <div>
+                                <p class="card-text text-center detail" style="height: 10em; ">{{details}}</p>
+                                <p id="card-status" class="card-text text-buttom status">{{status}}</p>
                             </div>
                         </div>
-                    </a>
+                        <div>
+                            <form action="/member/seepost" method="post">
+                                <input type="hidden" name="dataID" value="{{dataID}}" required>
+                                <button type="submit" class="btn" style="background-color:#8d38c9; color:white;">
+                                    See post
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 {{/results}}
             </div>
-            {{! <button class="adder">
-            <div> + </div>
-        </button> }}
-
         </div>
+
+        <!--จบ-->
+
         <script src="../style/stycky.js"></script>
+        <script>
+            cardTitleCollection = document.getElementsByClassName('status');
+            stickElement = document.querySelectorAll("#card-status")
+            stickCard = document.querySelectorAll("#stick2")
+            img = document.querySelectorAll('#show-image')
+            var i = 0;
+            stickElement.forEach(element => {
+                var item = cardTitleCollection[i]
+                console.log(item.innerText)
+                if (item.innerText == 'Found')
+                    stickCard[i].style.boxShadow = "5px 10px 10px rgb(255, 48, 48, 0.3)"
+                else if (item.innerText == 'Returned')
+                    stickCard[i].style.boxShadow = "5px 10px 10px rgb(60, 255, 0, 0.3)"
+                else if (item.innerText == 'Lost')
+                    stickCard[i].style.boxShadow = "5px 10px 10px rgb(0, 0, 0, 0.3)"
+                
+                src = img[i].getAttribute('src')
+                console.log(src)
+                if(src == '/')
+                    img[i].src = '../img/white_bg.jpg'
+                i++
+            })
+
+            
+            
+            
+
+            function search() {
+                var input, filter, p_username, p_details, textValue
+                input = document.getElementById('search')
+                cardTitleCollection = document.getElementsByClassName('status');
+                stickElement = document.querySelectorAll("#card-status")
+                stickCard = document.querySelectorAll("#stick2")
+            }
+        </script>
 </body>
 
 </html>

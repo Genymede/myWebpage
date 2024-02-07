@@ -10,8 +10,19 @@ body{
     text-align: center;
 }
 
+.logo{
+    height: 7em;
+    width:  7em;
+    object-fit: cover;
+}
+
 .aside{
     background-color: #f4f4f4;
+}
+
+.menu-button{
+    width: 150px;
+    margin: 10px;
 }
 
 .footer{
@@ -29,27 +40,8 @@ body{
     background-color: transparent;
 }
 
-ul{
-    list-style-type: none;
-}
-
-li{
-    padding: 5px;
-    margin-top: 1px;
-    background-color: rgb(255, 48, 48);
-    color: #FFF;
-    border-radius: 3px;
-}
-
-li:hover{
-    padding: 5px;
-    animation: animate 0.5s ease;
-    background-color: rgb(255, 162, 0);
-    border-radius: 10px;
-}
-
 .offcanvas-menu{
-    width: 200px;   
+    width: 300px;   
     position: fixed;
 }
 
@@ -65,15 +57,8 @@ li:hover{
     color: black;
 }
 
-
-
-@keyframes animate{
-    0%{
-        border-radius: 3px;
-        background-color: rgb(255, 48, 48);
-    }
-    100%{
-        border-radius: 10px;
-        background-color: rgb(255, 162, 0);
-    }
+#user-image{
+    height: 5em;
+    width:  5em;
+    object-fit: cover;
 }

@@ -1,0 +1,153 @@
+/*ส่วนหลัก*/
+
+body{
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgba(174, 0, 255);
+    backdrop-filter: blur(10px);
+
+}
+/*คลุมพื้นหลังเพื่อลดความเด่น*/
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(248, 237, 237, 0.348); /* สีดำโปร่งใส */
+  z-index: -1;
+  backdrop-filter: blur(10px); /* ปรับค่าเบลอตามต้องการ */
+}
+
+
+
+#txt-yellow{
+    color: rgb(224, 252, 41);
+}
+.txt-blue{
+    color: #0013e9;
+}
+
+/*
+header{
+    padding: 20px;
+
+    display: flex;
+    justify-self: space-between;
+}
+*/
+/*ส่วนรูปLogo*/
+.logo-left{
+    max-width: 100%;
+    height: auto;
+    width: 5px auto;
+    margin: 5px;
+
+}
+
+/*ส่วนรูปค้นหา*/
+.logo-right{
+    max-width: 100%;
+    height: auto;
+    width: 5px auto;
+    margin: 5px;
+    
+}
+
+
+.centered-container{
+    width: 50%;
+    margin: auto; 
+
+}  
+
+/*ส่วนกรอบheader*/
+header{
+  background-color: #DAA520;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  height: 50px;
+  justify-content: space-between;
+  display: flex;
+  
+
+}
+
+/*ส่วนกรอบล่าง*/
+footer{
+    background-color: rgb(0, 33, 244);
+    color: rgb(252, 17, 17);
+    padding: 3px 3px;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+
+
+}
+
+/*ส่วนเมนูใหม่*/
+.container {
+    display: flex;
+    margin-top: 3px; /* เพิ่มระยะห่างด้านบน */
+    margin-bottom: 5px; /* เพิ่มระยะห่างด้านล่าง */
+    margin-left: 20px; /* เพิ่มระยะห่างด้านซ้าย */
+    margin-right: 20px; /* เพิ่มระยะห่างด้านขวา */
+  }
+  
+.menu-container {
+  position: relative;
+}
+
+.menu-toggle {
+  cursor: pointer;
+  font-size: 24px;
+  position: relative;
+}
+/*ส่วนสัญลักษณ์ากากบาทเมนู*/
+.close-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #ffffff;
+}
+/*กรอบครอบเมนูอยู่main01*/
+.slide-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: #0000007a;/*สีพื้นหลังใหญ่เมนู*/
+  padding-top: 60px;
+  margin-top: 70px;
+  transition: 0.4s;
+  z-index: 2; /* ให้แถบเมนูอยู่บนหน้าหลัก */
+}
+
+.slide-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.slide-menu li {
+  padding: 15px;
+}
+/*ตัวอักษรในเมนู */
+.slide-menu a {
+  text-decoration: none;
+  color: #000000;/*สีตัวอักษรตอนยังไม่เลือก*/
+  font-size: 18px;
+  display: block;
+ /* transition: 0.3s;*/
+}
+
+.slide-menu a:hover {
+  color: #ffffff;/*สีตอนเลือก*/
+}
+
