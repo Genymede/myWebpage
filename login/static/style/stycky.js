@@ -7,11 +7,12 @@ stickElement.forEach(element => {
     var item = cardTitleCollection[i]
     //console.log(item.innerText)
     if (item.innerText == 'Found')
-        stickCard[i].style.boxShadow = "5px 10px 10px rgb(255, 48, 48, 0.3)"
+        //stickCard[i].style.boxShadow = "5px 10px 10px rgb(255, 48, 48, 0.3)"
+        stickCard[i].style.border = "5px solid rgb(255, 48, 48, 0.5)"
     else if (item.innerText == 'Returned')
-        stickCard[i].style.boxShadow = "5px 10px 10px rgb(60, 255, 0, 0.3)"
+        stickCard[i].style.border = "5px solid rgb(60, 255, 0, 0.5)"
     else if (item.innerText == 'Lost')
-        stickCard[i].style.boxShadow = "5px 10px 10px rgb(0, 0, 0, 0.3)"
+        stickCard[i].style.border = "5px solid rgb(0, 0, 0, 0.5)"
     src = img[i].getAttribute('src')
     //console.log(src)
     if (src == '/')
@@ -50,3 +51,14 @@ function myFunction() {
     console.log(input.value)
 }
 
+tz = document.getElementsByClassName('date')
+noTZ = document.querySelectorAll("#datetime")
+console.log(tz[0].innerText)
+i=0
+noTZ.forEach(element => {
+    time = tz[i].innerText
+    console.log(time)
+    tz[i].innerText = time.split('GMT+0700 (เวลาอินโดจีน)')
+    
+    i++
+})

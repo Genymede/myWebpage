@@ -333,7 +333,7 @@ router.post('/send',upload.single("dataImage"), (req,res) => {
     //console.log(res.cookie('username'))
     console.log(userID)
     console.log('0000')
-    
+    console.log(detail_time)
     if(user_cookie){
         if(req.file){
             const tempPath = req.file.path
@@ -477,7 +477,7 @@ router.post('/delete', (req,res) => {
             }
             else{
                 console.log('deleted')
-                res.redirect('/member/admin')
+                res.redirect('/member/member')
             }       
         })
     }
