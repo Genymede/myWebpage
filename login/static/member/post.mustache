@@ -30,13 +30,6 @@
                 aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                    style="border-radius: 40px;">
-
-                <button class="btn btn-outline-dark" type="submit">Search</button>
-
-            </form>
         </div>
     </nav>
     <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
@@ -51,7 +44,7 @@
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
-                <h3 style="margin: 10px;">{{#username}}{{.}}{{/username}}</h3>
+                <h3 style="margin: 10px;">{{#user}}{{username}}{{/user}}</h3>
             </div>
         </div>
         <div class="offcanvas-body">

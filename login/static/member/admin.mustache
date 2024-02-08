@@ -32,13 +32,8 @@
                     aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                        style="border-radius: 40px;">
-
-                    <button class="btn btn-outline-dark" type="submit">Search</button>
-
-                </form>
+                <input class="form-control me-2" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"
+                    style="width:20em; border-radius: 40px;">
             </div>
         </nav>
     </div>
@@ -68,11 +63,9 @@
         </div>
     </div>
     <div class="row aside" id="show-info">
-        
         <div class="col-12">
             <div class="main-layout">
                 <div class="col-11 main-layout text-center">
-
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -95,20 +88,20 @@
                         </thead>
                         <tbody id="tableBody">
                             {{#results}}
-                                <tr>
+                                <tr id="userData">
                                     <td><img src="/{{userImage}}" class="user-image"></td>
-                                    <td>{{userID}}</td>
-                                    <td>{{username}}</td>
-                                    <td>{{email}}</td>
-                                    <td>{{studentID}}</td>
-                                    <td>{{firstname}}</td>
-                                    <td>{{lastname}}</td>
-                                    <td>{{faculty}}</td>
-                                    <td>{{major}}</td>
-                                    <td>{{phone_number}}</td>
-                                    <td>{{facebook}}</td>
-                                    <td>{{instagram}}</td>
-                                    <td>{{x}}</td>
+                                    <td class="userid">{{userID}}</td>
+                                    <td class="username">{{username}}</td>
+                                    <td class="email">{{email}}</td>
+                                    <td class="studentid">{{studentID}}</td>
+                                    <td class="firstname">{{firstname}}</td>
+                                    <td class="lastname">{{lastname}}</td>
+                                    <td class="faculty">{{faculty}}</td>
+                                    <td class="major">{{major}}</td>
+                                    <td class="phonenumber">{{phonenumber}}</td>
+                                    <td class="fb">{{facebook}}</td>
+                                    <td class="ig">{{instagram}}</td>
+                                    <td class="x">{{x}}</td>
                                     <td>
                                         <form action="/member/editUser" method="post">
                                             <input type="hidden" name="username" value="{{username}}" required>
@@ -132,21 +125,72 @@
                             {{/results}}
                         </tbody>
                     </table>
-
-                   
-                    <!--<button class="adder" onclick="window.location.href='/member/add';">
-                        Add info
-                    </button>-->
                 </div>
             </div>
         </div>
-        {{! <button class="adder">
-            <div> + </div>
-        </button> }}
-
     </div>
 </div>
-    <script src="../style/stycky.js"></script>
+    
+    <script>
+
+        function myFunction() {
+            
+            var input, filter, tableSearch, tableData, a, i, userID,username,email,studentID,firstname,lastname,faculty,major,phonenumber,fb,ig,x;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+
+            console.log(input.value)
+
+            tableSearch = document.querySelectorAll("#userData");
+            //tableData = tableSearch.getElementsByTagName("td");
+
+            
+            classID = document.getElementsByClassName('userid') 
+            classUsername = document.getElementsByClassName('username')
+            classEmail = document.getElementsByClassName('email')
+            classFirstname = document.getElementsByClassName('firstname')
+            classLastname = document.getElementsByClassName('lastname')
+            classStudentID = document.getElementsByClassName('studentid')
+            classFaculty = document.getElementsByClassName('faculty')
+            classMajor = document.getElementsByClassName('major')
+            classPhonenumber = document.getElementsByClassName('phonenumber')
+            classFacebook = document.getElementsByClassName('fb')
+            classInsatagram = document.getElementsByClassName('ig')
+            classX = document.getElementsByClassName('x')
+            //console.log(classUsername[0].innerText)
+            //console.log(username = classUsername[0].innerText)
+
+            i=0
+            tableSearch.forEach(element => {
+                userID = classID[i].innerText
+                username = classUsername[i].innerText
+                email = classEmail[i].innerText
+                studentID = classStudentID[i].innerText
+                firstname = classFirstname[i].innerText
+                lastname = classLastname[i].innerText
+                faculty = classFaculty[i].innerText
+                major = classMajor[i].innerText
+                phonenumber = classPhonenumber[i].innerText
+                fb = classFacebook[i].innerText
+                ig = classInsatagram[i].innerText
+                x = classX[i].innerText
+
+                if((userID.toUpperCase().indexOf(filter) > -1)||(username.toUpperCase().indexOf(filter) > -1)||
+                (email.toUpperCase().indexOf(filter) > -1)|| (studentID.toUpperCase().indexOf(filter) > -1)||
+                (firstname.toUpperCase().indexOf(filter) > -1)|| (lastname.toUpperCase().indexOf(filter) > -1)||
+                (faculty.toUpperCase().indexOf(filter) > -1)|| (major.toUpperCase().indexOf(filter) > -1)||
+                (phonenumber.toUpperCase().indexOf(filter) > -1)|| (fb.toUpperCase().indexOf(filter) > -1)||
+                (ig.toUpperCase().indexOf(filter) > -1)|| (x.toUpperCase().indexOf(filter) > -1))
+                    tableSearch[i].style.display = ""
+                else
+                    tableSearch[i].style.display = "none"
+                i++
+            })
+            
+        }
+
+        
+    </script>
 </body>
 
 </html>

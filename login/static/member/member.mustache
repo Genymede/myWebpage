@@ -30,12 +30,8 @@
                 aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                    style="border-radius: 40px;">
-                <button class="btn btn-outline-dark" type="submit">Search</button>
-
-            </form>
+            <input class="form-control me-2" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"
+                style="width:20em; border-radius: 40px;">
         </div>
     </nav>
     <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
@@ -54,7 +50,7 @@
                 <h3 style="margin: 10px;">{{#username}}{{.}}{{/username}}</h3>
             </div>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body" id="menu">
             <button class="menu-button btn btn-danger" onclick="window.location.href='/member/member'">Your
                 Account</button>
             <button class="menu-button btn btn-danger" href="#">Another action</button>
@@ -76,6 +72,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6" style="margin:5px">
+                            <p id="userID">userID: {{userID}}</p>
                             <p>ID: {{studentID}}</p>
                             <p>Name: {{firstname}} {{lastname}}</p>
                             <p>Faculty: {{faculty}} Major: {{major}}</p>
@@ -100,8 +97,7 @@
                             <div class="modal-body">
                                 <form action="/member/editProfile" enctype="multipart/form-data" id="updateProfile"
                                     method="post">
-                                    <input type="hidden" id="userID" name="userID"
-                                        value="{{userID}}" required>
+                                    <input type="hidden" id="userID" name="userID" value="{{userID}}" required>
                                     <div class="form-row mb-3">
                                         <div class="form-input">
                                             <div class="preview">
@@ -193,10 +189,12 @@
                 <div class="col-11 main-layout text-center">
                     {{#results}}
                         <div class="card main-layout text-center" id="stick2" style="width: 22rem;">
-                            <img class="card-img-top" id="show-image" src="/{{image}}" alt="Card image cap">
+                            <img class="card-img-top img" id="show-image" src="/{{image}}" alt="Card image cap">
                             <div class="card-body">
+                                <h5 class="card-title username" id="username">{{username}}</h5>
                                 <div>
-                                    <p class="card-text text-center" style="height: 10em;">{{details}}</p>
+                                    <p class="card-text text-center detail" id="detail" style="height: 10em; ">
+                                        {{details}}</p>
                                     <p id="card-status" class="card-text text-buttom status">{{status}}</p>
                                 </div>
                             </div>
@@ -256,26 +254,6 @@
                 preview.style.display = "block";
             }
         }
-        cardTitleCollection = document.getElementsByClassName('status');
-        stickElement = document.querySelectorAll("#card-status")
-        stickCard = document.querySelectorAll("#stick2")
-        img = document.querySelectorAll('#show-image')
-        var i = 0;
-        stickElement.forEach(element => {
-            var item = cardTitleCollection[i]
-            console.log(item.innerText)
-            if (item.innerText == 'Found')
-                stickCard[i].style.boxShadow = "5px 10px 10px rgb(255, 48, 48, 0.3)"
-            else if (item.innerText == 'Returned')
-                stickCard[i].style.boxShadow = "5px 10px 10px rgb(60, 255, 0, 0.3)"
-            else if (item.innerText == 'Lost')
-                stickCard[i].style.boxShadow = "5px 10px 10px rgb(0, 0, 0, 0.3)"
-            src = img[i].getAttribute('src')
-            console.log(src)
-            if (src == '/')
-                img[i].src = '../img/white_bg.jpg'
-            i++
-        })
     </script>
 </body>
 

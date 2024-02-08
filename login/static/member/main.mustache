@@ -30,12 +30,8 @@
                 aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form class="d-flex">
-                <input class="form-control me-2" id="search" type="search" placeholder="Search" aria-label="Search"
-                    style="border-radius: 40px;">
-                <button class="btn btn-outline-dark" type="submit">Search</button>
-
-            </form>
+           
+            <input class="form-control me-2" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search" style="width:20em; border-radius: 40px;">
         </div>
     </nav>
     <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
@@ -53,7 +49,6 @@
                 </div>
                 <h3 style="margin: 10px;">{{#username}}{{.}}{{/username}}</h3>
             </div>
-
         </div>
         <div class="offcanvas-body">
             <button class="menu-button btn btn-danger" onclick="window.location.href='/member/member'">Your
@@ -67,14 +62,14 @@
     <div class="row aside" id="show-info">
         <div class="col-2"></div>
         <div class="col-8">
-            <div class="main-layout">
+            <div class="main-layout" id="">
                 {{#results}}
-                    <div class="card main-layout text-center" id="stick2" style="width: 18rem;">
+                    <div class="card main-layout text-center cardforsearch" id="stick2" style="width: 18rem;">
                         <img class="card-img-top img" id="show-image" src="/{{image}}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title username">{{username}}</h5>
+                            <h5 class="card-title username" id="username">{{username}}</h5>
                             <div>
-                                <p class="card-text text-center detail" style="height: 10em; ">{{details}}</p>
+                                <p class="card-text text-center detail" id="detail" style="height: 10em; ">{{details}}</p>
                                 <p id="card-status" class="card-text text-buttom status">{{status}}</p>
                             </div>
                         </div>
@@ -94,41 +89,6 @@
         <!--จบ-->
 
         <script src="../style/stycky.js"></script>
-        <script>
-            cardTitleCollection = document.getElementsByClassName('status');
-            stickElement = document.querySelectorAll("#card-status")
-            stickCard = document.querySelectorAll("#stick2")
-            img = document.querySelectorAll('#show-image')
-            var i = 0;
-            stickElement.forEach(element => {
-                var item = cardTitleCollection[i]
-                console.log(item.innerText)
-                if (item.innerText == 'Found')
-                    stickCard[i].style.boxShadow = "5px 10px 10px rgb(255, 48, 48, 0.3)"
-                else if (item.innerText == 'Returned')
-                    stickCard[i].style.boxShadow = "5px 10px 10px rgb(60, 255, 0, 0.3)"
-                else if (item.innerText == 'Lost')
-                    stickCard[i].style.boxShadow = "5px 10px 10px rgb(0, 0, 0, 0.3)"
-                
-                src = img[i].getAttribute('src')
-                console.log(src)
-                if(src == '/')
-                    img[i].src = '../img/white_bg.jpg'
-                i++
-            })
-
-            
-            
-            
-
-            function search() {
-                var input, filter, p_username, p_details, textValue
-                input = document.getElementById('search')
-                cardTitleCollection = document.getElementsByClassName('status');
-                stickElement = document.querySelectorAll("#card-status")
-                stickCard = document.querySelectorAll("#stick2")
-            }
-        </script>
 </body>
 
 </html>

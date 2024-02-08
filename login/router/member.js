@@ -33,6 +33,16 @@ const pool = mysql.createPool({
 })  
 
 admin_name = ''
+pool.query('SELECT username FROM users WHERE userID = 1',(err,results)=>{
+    console.log(results)
+    if(err)
+        console.log(err)
+    else{
+        admin_name = results[0].username
+        console.log('admin is: ' + admin_name)
+    }  
+})
+
 //pool.query('SELECT * FROM users')
 
 router.use(bdyParser.urlencoded({extended:true}))
@@ -48,7 +58,7 @@ router.get('/login',(req,res) => {
     const username = req.cookies.username
     console.log('username: ' + username)
     if(username){
-        res.redirect('/member/member')
+        res.redirect('/member/admin')
     }
     else
         res.render('member/login')  
@@ -171,7 +181,10 @@ router.get('/member',(req,res) => {
                     }
                     else{
                         //thisresult.userImage
-                        res.render('member/member', {'username':username,'results':results,'user':thisresult})
+                        if(username == admin_name)
+                            res.render('member/memberAdmin', {'username':username,'results':results,'user':thisresult})
+                        else
+                            res.render('member/member', {'username':username,'results':results,'user':thisresult})
                     }
                 })
                 console.log('2 ' + username)
@@ -205,7 +218,10 @@ router.get('/main',(req,res) => {
                         else{
                             //thisresult.userImage
                             console.log(thisresult[0].userImage)
-                            res.render('member/main', {'username':username,'userImage':thisresult[0].userImage})
+                            if(username == admin_name)
+                                res.render('member/mainAdmin', {'username':username,'results':results,'userImage':thisresult[0].userImage})
+                            else
+                                res.render('member/main', {'username':username,'results':results,'userImage':thisresult[0].userImage})
                         }
                     })
                     //console.log('1 ' + username)
@@ -219,7 +235,10 @@ router.get('/main',(req,res) => {
                         else{
                             //thisresult.userImage
                             console.log(thisresult[0].userImage)
-                            res.render('member/main', {'username':username,'results':results,'userImage':thisresult[0].userImage})
+                            if(username == admin_name)
+                                res.render('member/mainAdmin', {'username':username,'results':results,'userImage':thisresult[0].userImage})
+                            else
+                                res.render('member/main', {'username':username,'results':results,'userImage':thisresult[0].userImage})
                         }
                     })
                 }
@@ -281,6 +300,7 @@ router.get('/admin',(req,res)=>{
     const username = req.cookies.username
     if(username){
         if(username == admin_name){
+            
             pool.query('SELECT * FROM users',(err,results)=>{
                 if(err){
                     console.log(err)
@@ -388,7 +408,13 @@ router.post('/seepost',(req,res)=> {
             if(err)
                 console.log('Cannot see this post')
             else{
-                res.render('member/post',{'username':user_cookie,'results':results})
+                const userSql = 'SELECT * FROM users WHERE username = ?'
+                pool.query(userSql,[user_cookie],(err,userResult)=>{
+                    if(err)
+                        console.log(err)
+                    else
+                        res.render('member/post',{'user':userResult,'results':results})
+                })
             }
         })
     }
@@ -418,7 +444,14 @@ router.post('/users',(req,res)=>{
                         if(err)
                             console.log(err)
                         else{
-                            res.render('member/user',{'user':userResults,'results':infoResults})
+                            const watcherSql = 'SELECT * FROM users WHERE username = ?'
+                            pool.query(watcherSql,[user_cookie],(err,watcherResults)=>{
+                                if(err)
+                                    console.log(err)
+                                else
+                                    res.render('member/user',{'user':userResults,'results':infoResults,'watcher':watcherResults})
+                            })
+                            
                         }
                     })
                     
@@ -444,7 +477,7 @@ router.post('/delete', (req,res) => {
             }
             else{
                 console.log('deleted')
-                res.redirect('/member/member')
+                res.redirect('/member/admin')
             }       
         })
     }
@@ -506,6 +539,58 @@ router.post('/editUser',(req,res)=>{
         res.redirect('/member/login')
 })
 
+router.post('/score',(req,res)=>{
+    const {userID,score,reviewerID} = req.body
+    console.log('userID:'+userID)
+    console.log('score: '+score)
+    console.log('reviewerID: '+reviewerID)
+    const user_cookie = req.cookies.username
+    //console.log(admin_name)
+    if(user_cookie){
+        const select = 'SELECT * FROM credit WHERE userID LIKE ? AND reviewerID LIKE ? AND reviewerName LIKE ?'
+        pool.query(select,[userID,reviewerID,user_cookie],(err,results)=>{
+            if(err)
+                console.log(err)
+            else{
+                if(results[0] == null){
+                    console.log(results[0])
+                    const sql = 'INSERT INTO credit (userID,score,reviewerID,reviewerName) VALUES(?, ?, ?, ?)'
+                    pool.query(sql,[userID,score,reviewerID,user_cookie],(err,reviewerResult)=>{
+                        if(err)
+                            console.log(err)
+                    })
+                }
+                else{
+                    console.log(results[0])
+                    console.log('Bruh')
+                    const sql = 'UPDATE credit SET score = ? WHERE userID = ? AND reviewerID = ? AND reviewerName = ?'
+                    pool.query(sql,[score,userID,reviewerID,user_cookie],(err,scoreResults)=>{
+                        if(err)
+                            console.log(err)
+                    })
+                }
+                const sql = 'SELECT AVG(score) AS avgScore  FROM credit WHERE userID = ?'
+                pool.query(sql,[userID],(err,infoResults)=>{
+                    if(err)
+                        console.log(err)
+                    else{
+                        console.log(infoResults[0].avgScore)
+                        const updateAVG = 'UPDATE users SET avgScore = ? WHERE userID = ?'
+                        pool.query(updateAVG,[infoResults[0].avgScore,userID],(err,updateResult)=>{
+                            if(err)
+                                console.log(err)
+                        })
+                        res.redirect('/member/main')
+                        //res.render('member/memberForUpdate',{'user':userResults,'results':infoResults})
+                    }
+                })
+            }
+        })
+    }
+    else
+        res.redirect('/member/login')
+})
+
 router.post('/editProfileForAdmin',upload.single("profile"), (req,res)=>{
     const {userID,profile,username,email,studentid,firstname,lastname,faculty,major,phonenumber,facebook,instagram,x} = req.body
     const user_cookie = req.cookies.username
@@ -554,6 +639,7 @@ router.post('/editProfileForAdmin',upload.single("profile"), (req,res)=>{
                                 }
                                 else{
                                     console.log('welcome admin')
+                                    res.clearCookie('username')
                                     res.cookie('username',admin_name,{maxAge:900000})
                                     res.redirect('/member/admin')
                                 }
@@ -580,6 +666,7 @@ router.post('/editProfileForAdmin',upload.single("profile"), (req,res)=>{
                     }
                     else{
                         console.log('welcome admin')
+                        res.clearCookie('username')
                         res.cookie('username',admin_name,{maxAge:900000})
                         res.redirect('/member/admin')
                     }
@@ -627,15 +714,15 @@ router.post('/editProfile',upload.single("profile"), (req,res)=>{
             console.log(targetPath)
             const userImage = targetPath.split('static\\')
             console.log(userImage[1])
-
+            console.log(userImage[1].replace(/\s/g, ""))
             if ((path.extname(req.file.originalname).toLowerCase() === ".png")||(path.extname(req.file.originalname).toLowerCase() === ".jpg")) {
-                fs.rename(tempPath, targetPath, err => {
+                fs.rename(tempPath, targetPath.replace(/\s/g, ""), err => {
                     if (err)
                         return handleError(err, res);
                     else{
                         const sql = 'UPDATE users SET userImage = ?, username = ?, email = ?, studentID = ?, firstname = ?, lastname = ?, faculty = ?, major = ?, phonenumber = ?, facebook = ?, instagram = ?, x = ? WHERE userID = ?'                    
                         console.log('update user and image')
-                        pool.query(sql, [userImage[1].replace(' ',''),username,email,studentid,firstname,lastname,faculty,major,phonenumber,facebook,instagram,x,userID], (error, results) =>{
+                        pool.query(sql, [userImage[1].replace(/\s/g, ""),username,email,studentid,firstname,lastname,faculty,major,phonenumber,facebook,instagram,x,userID], (error, results) =>{
                             if(error){
                                 console.log('somethings wrong');
                                 //res.render('member/register', {msg:'Username or Password is used please change!'})  
@@ -652,15 +739,15 @@ router.post('/editProfile',upload.single("profile"), (req,res)=>{
                                             console.log(admin_name)
                                             console.log(results[0].username)
                                             console.log('welcome admin')
+                                            res.clearCookie('username')
                                             res.cookie('username',admin_name,{maxAge:900000})
-                                            res.redirect('/member/member')
                                         }
                                         else{
                                             admin_name = ''
                                             console.log('welcome user')
                                             res.cookie('username',username,{maxAge:900000})
-                                            res.redirect('/member/main')
                                         }
+                                        res.redirect('/member/member')
                                     }
                                 })
                                             // res.cookie('username',username,{maxAge:900000})
@@ -699,15 +786,17 @@ router.post('/editProfile',upload.single("profile"), (req,res)=>{
                                 console.log(admin_name)
                                 console.log(results[0].username)
                                 console.log('welcome admin')
+                                res.clearCookie('username')
+                                res.clearCookie('username')
                                 res.cookie('username',admin_name,{maxAge:900000})
-                                res.redirect('/member/member')
                             }
                             else{
                                 admin_name = ''
                                 console.log('welcome user')
                                 res.cookie('username',username,{maxAge:900000})
-                                res.redirect('/member/main')
+                                
                             }
+                            res.redirect('/member/member')
                         }
                     })
                 }
@@ -990,3 +1079,4 @@ router.post("/upload",
 );
 
 module.exports = router
+

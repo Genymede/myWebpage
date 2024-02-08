@@ -1,50 +1,52 @@
-// const IDchange = document.getElementById('stick1')
-// IDchange.id = 'stick2'
+cardTitleCollection = document.getElementsByClassName('status');
+stickElement = document.querySelectorAll("#card-status")
+stickCard = document.querySelectorAll("#stick2")
+img = document.querySelectorAll('#show-image')
+var i = 0;
+stickElement.forEach(element => {
+    var item = cardTitleCollection[i]
+    //console.log(item.innerText)
+    if (item.innerText == 'Found')
+        stickCard[i].style.boxShadow = "5px 10px 10px rgb(255, 48, 48, 0.3)"
+    else if (item.innerText == 'Returned')
+        stickCard[i].style.boxShadow = "5px 10px 10px rgb(60, 255, 0, 0.3)"
+    else if (item.innerText == 'Lost')
+        stickCard[i].style.boxShadow = "5px 10px 10px rgb(0, 0, 0, 0.3)"
+    src = img[i].getAttribute('src')
+    //console.log(src)
+    if (src == '/')
+        img[i].src = '../img/white_bg.jpg'
+    i++
+})
 
-// function addBox() {
-//     //show-info
-//     const box = document.createElement("div")
-//     box.setAttribute("id", "stick2")
+function myFunction() {
+    var input, filter, card, name, a, i, txtDetail,txtUsername;
+    input = document.getElementById("myInput");
+    //filter = input.value.toUpperCase();
+    //element = document.getElementsByClassName("cardforsearch")
+    filter = input.value.toUpperCase();
+
+    getEachCard = document.querySelectorAll("#stick2")
+    getUsername = document.getElementsByClassName('username')
+    getDetail = document.getElementsByClassName('detail')
+
+    i = 0
     
-//     const info = document.createTextNode('details')
-//     box.appendChild(info)
-
-//     const newNote = document.getElementById('show-info')
-//     console.log(newNote)
-//     const adder = document.getElementById('stick1')
-//     newNote.insertBefore(box,adder)
-//     stickElement = document.querySelectorAll("#stick1,#stick2,#stick3")
-//     stickElement.forEach(element => {
-//         //element.style.backgroundColor = "#F00"
-//         element.style.color = "#000"
-//         element.style.fontSize = "1em"
-//     })
-    
-// }
-
-// var aTags = document.getElementsByTagName("p")
-// var searchText = 'Found'
-// var found
-
-// for (var i = 0; i < aTags.length; i++) {
-//     if (aTags[i].textContent == searchText) {
-//         found = aTags[i];
-//         break;
-//     }
-// }
-
-// console.log(found)
-// var text = found.innerText
-// console.log(text)
-
-// var statusID = document.getElementById('status-parser')
-// console.log(statusID.innerText)
-
-//var IDchange = document.querySelectorAll("#stick2")
-//IDchange.id = 'stick1'
-// for(var i=0;i<IDchange.length;i++){
-//     if(IDchange[i].getElementsByClassName('stat')){
-//         IDchange[i].id = 'stick1'
-//     }
-// }
+    getEachCard.forEach(element => {
+        for(j=0;j<getDetail[i].innerText.length;j++){
+            txtDetail = getDetail[i].textContent || getDetail[i].innerText
+            txtUsername = getUsername[i].textContent || getUsername[i].innerText
+            if((txtDetail.toUpperCase().indexOf(filter) > -1)|| (txtUsername.toUpperCase().indexOf(filter) > -1)){
+                console.log('yaaaaa')
+                getEachCard[i].style.display = ""
+            }
+            else{
+                console.log('nnnnnnnn')
+                getEachCard[i].style.display = "none"
+            }
+        }
+        i++
+    })
+    console.log(input.value)
+}
 

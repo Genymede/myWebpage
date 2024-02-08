@@ -30,12 +30,8 @@
                 aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                    style="border-radius: 40px;">
-                <button class="btn btn-outline-dark" type="submit">Search</button>
-
-            </form>
+            <input class="form-control me-2" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"
+                style="width:20em; border-radius: 40px;">
         </div>
     </nav>
     <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
@@ -44,7 +40,8 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <a href="/member/member"><img style="border-radius:50%;" id="user-image" src="/{{#user}}{{userImage}}{{/user}}"></a>
+                    <a href="/member/member"><img style="border-radius:50%;" id="user-image"
+                            src="/{{#user}}{{userImage}}{{/user}}"></a>
                 </div>
                 <div class="col-md-6 text-black-50 text-end">
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
@@ -66,7 +63,8 @@
                 <div class="row showuser">
                     <div class="row">
                         <div class="col-md-3">
-                            <img id="user-image" src="/{{userImage}}" alt="user-profile" style="border-radius:50%; margin: 5px;">
+                            <img id="user-image" src="/{{userImage}}" alt="user-profile"
+                                style="border-radius:50%; margin: 5px;">
                         </div>
                         <div class="col-md-9">
                             <h5 style="margin: 25px;">{{username}}</h5>
@@ -96,14 +94,13 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/member/editProfileForAdmin" enctype="multipart/form-data" id="updateProfile"
-                                    method="post">
-                                    <input type="hidden" id="userID" name="userID"
-                                        value="{{userID}}" required>
+                                <form action="/member/editProfileForAdmin" enctype="multipart/form-data"
+                                    id="updateProfile" method="post">
+                                    <input type="hidden" id="userID" name="userID" value="{{userID}}" required>
                                     <div class="form-row mb-3">
                                         <div class="form-input">
                                             <div class="preview">
-                                                <img id="show-profile" src="/{{userImage}}">
+                                                <img id="show-profile" src="/{{userImage}}" style="border-radius:50%;">
                                             </div>
                                             <label for="profile">Upload profile</label>
                                             <input type="file" name="profile" id="profile" accept="image/*"
@@ -190,16 +187,18 @@
                 <div class="col-11 main-layout text-center">
                     {{#results}}
                         <div class="card main-layout text-center" id="stick2" style="width: 22rem;">
-                            <img class="card-img-top" id="show-image" src="/{{image}}" alt="Card image cap">
+                            <img class="card-img-top img" id="show-image" src="/{{image}}" alt="Card image cap">
                             <div class="card-body">
+                                <h5 class="card-title username" id="username">{{username}}</h5>
                                 <div>
-                                    <p class="card-text text-center" style="height: 10em;">{{details}}</p>
+                                    <p class="card-text text-center detail" id="detail" style="height: 10em; ">
+                                        {{details}}</p>
                                     <p id="card-status" class="card-text text-buttom status">{{status}}</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <form action="/member/updateUser" method="post" >
+                                    <form action="/member/updateUser" method="post">
                                         <input type="hidden" name="dataID" value="{{dataID}}" required>
                                         <button type="submit" class="btn btn-primary">
                                             Edit <i class="bi bi-pen"></i>
@@ -209,13 +208,15 @@
                                 <div class="col-md-4">
                                     <form action="/member/seepost" method="post">
                                         <input type="hidden" name="dataID" value="{{dataID}}" required>
-                                        <button type="submit" class="btn" style="background-color:#8d38c9; color:white;">
+                                        <button type="submit" class="btn"
+                                            style="background-color:#8d38c9; color:white;">
                                             See post
                                         </button>
                                     </form>
                                 </div>
                                 <div class="col-md-4">
-                                    <form action="/member/delete" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
+                                    <form action="/member/delete" method="post"
+                                        onsubmit="return confirm('Are you sure you want to delete?');">
                                         <input type="hidden" name="dataID" value="{{dataID}}" required>
                                         <button type="submit" class="btn btn-danger">
                                             Delete <i class="bi bi-trash"></i>
@@ -223,7 +224,7 @@
                                     </form>
                                 </div>
                             </div>
-                            
+
                         </div>
                     {{/results}}
 
@@ -233,6 +234,16 @@
 
     </div>
     <script src="../style/stycky.js"></script>
+    <script>
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("show-profile");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+    </script>
 </body>
 
 </html>

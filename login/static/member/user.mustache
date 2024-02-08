@@ -30,29 +30,23 @@
                 aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                    style="border-radius: 40px;">
-
-                <button class="btn btn-outline-dark" type="submit">Search</button>
-
-            </form>
+            <input class="form-control me-2" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"
+                style="width:20em; border-radius: 40px;">
         </div>
     </nav>
     <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
     <div class="offcanvas offcanvas-menu offcanvas-start" tabindex="-1" id="side-menu" aria-labelledby="side-menu">
         <div class="offcanvas-header">
-
             <div class="row">
                 <div class="col-md-6">
                     <a href="/member/member"><img style="border-radius:50%;" id="user-image"
-                            src="/{{#user}}{{userImage}}{{/user}}"></a>
+                            src="/{{#watcher}}{{userImage}}{{/watcher}}"></a>
                 </div>
                 <div class="col-md-6 text-black-50 text-end">
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
-                <h3 style="margin: 10px;">{{#username}}{{.}}{{/username}}</h3>
+                <h3 style="margin: 10px;">{{#watcher}}{{username}}{{/watcher}}</h3>
             </div>
         </div>
         <div class="offcanvas-body">
@@ -68,7 +62,8 @@
                 <div class="row showuser">
                     <div class="row">
                         <div class="col-md-3">
-                            <img id="user-image" src="/{{userImage}}" alt="user-profile" style="border-radius:50%; margin: 5px;">
+                            <img id="user-image" src="/{{userImage}}" alt="user-profile"
+                                style="border-radius:50%; margin: 5px;">
                         </div>
                         <div class="col-md-9">
                             <h5 style="margin: 25px;">{{username}}</h5>
@@ -79,22 +74,40 @@
                             <p>ID: {{studentID}}</p>
                             <p>Name: {{firstname}} {{lastname}}</p>
                             <p>Faculty: {{faculty}} Major: {{major}}</p>
+                            <h5>score: {{avgScore}}</h5>
 
                         </div>
                     </div>
+                    <form action="/member/score" method="post">
+                        <input type="hidden" id="userID" name="userID" value="{{userID}}" required>
+                        <input type="hidden" id="reviewerID" name="reviewerID"
+                            value="{{#watcher}}{{userID}}{{/watcher}}" required>
+                        <div class="form-row">
+                            <select name="score" class="col-md-1 mb-3 form-control">
+                                <option selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <button class="col-md-3 btn btn-danger text-center" type="submit">Review score</button>
+                        </div>
+                    </form>
                 </div>
             {{/user}}
         </div>
         <div class="col-9">
             <div class="main-layout">
-
                 <div class="col-11 main-layout text-center">
                     {{#results}}
                         <div class="card main-layout text-center" id="stick2" style="width: 22rem;">
-                            <img class="card-img-top" id="show-image" src="/{{image}}" alt="Card image cap">
+                            <img class="card-img-top img" id="show-image" src="/{{image}}" alt="Card image cap">
                             <div class="card-body">
+                                <h5 class="card-title username" id="username">{{username}}</h5>
                                 <div>
-                                    <p class="card-text text-center" style="height: 10em;">{{details}}</p>
+                                    <p class="card-text text-center detail" id="detail" style="height: 10em; ">
+                                        {{details}}</p>
                                     <p id="card-status" class="card-text text-buttom status">{{status}}</p>
                                 </div>
                             </div>
@@ -115,6 +128,7 @@
 
     </div>
     <script src="../style/stycky.js"></script>
+
 </body>
 
 </html>
