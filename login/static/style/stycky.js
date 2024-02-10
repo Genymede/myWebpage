@@ -38,11 +38,9 @@ function myFunction() {
             txtDetail = getDetail[i].textContent || getDetail[i].innerText
             txtUsername = getUsername[i].textContent || getUsername[i].innerText
             if((txtDetail.toUpperCase().indexOf(filter) > -1)|| (txtUsername.toUpperCase().indexOf(filter) > -1)){
-                console.log('yaaaaa')
                 getEachCard[i].style.display = ""
             }
             else{
-                console.log('nnnnnnnn')
                 getEachCard[i].style.display = "none"
             }
         }

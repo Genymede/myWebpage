@@ -7,6 +7,7 @@ const cookie = require('cookie-parser')
 const md5 = require('md5')
 const fs = require("fs");
 const multer = require("multer");
+const e = require('express')
 
 const handleError = (err, res) => {
 res
@@ -43,6 +44,7 @@ pool.query('SELECT username FROM users WHERE userID = 1',(err,results)=>{
     }  
 })
 
+console.log(getTime())
 //pool.query('SELECT * FROM users')
 
 router.use(bdyParser.urlencoded({extended:true}))
@@ -287,10 +289,11 @@ router.post('/verify', (req,res) => {
                             }
                         }
                     })
-                    
+                    tracking(username,'Login')
                 }
             }
         })
+        
     }
     else
         res.redirect('/member/login')
@@ -327,13 +330,42 @@ router.get('/admin',(req,res)=>{
     }
 })
 
+router.get('/userActivity',(req,res)=>{
+    const username = req.cookies.username
+    if(username){
+        if(username == admin_name){
+            pool.query('SELECT * FROM user_act ORDER BY actiontime DESC',(err,results)=>{
+                if(err){
+                    console.log(err)
+                }
+                else{
+                    pool.query('SELECT * FROM users WHERE username = ?',[username],(err,userResult)=>{
+                        if(err){
+                            console.log('err')
+                        }
+                        else{
+                            res.render('member/action',{'admin':userResult,'results':results})
+                        }
+                    })
+                    
+                }
+            })
+        }
+        else{
+            res.redirect('/member/member')
+        }
+    }
+    else{
+        res.redirect('/member/login')
+    }
+})
+
 router.post('/send',upload.single("dataImage"), (req,res) => {
     const {userID,dataImage,details,detail_time} = req.body
     const user_cookie = req.cookies.username
     //console.log(res.cookie('username'))
     console.log(userID)
     console.log('0000')
-    console.log(detail_time)
     if(user_cookie){
         if(req.file){
             const tempPath = req.file.path
@@ -393,7 +425,7 @@ router.post('/send',upload.single("dataImage"), (req,res) => {
                 })
             })
         }
-        
+        tracking(user_cookie,'Add post')
     }
     else
         res.redirect('/member/login')
@@ -478,8 +510,9 @@ router.post('/delete', (req,res) => {
             else{
                 console.log('deleted')
                 res.redirect('/member/member')
-            }       
+            }
         })
+        tracking(user_cookie,'Delete post ID:  '+dataID)
     }
     else
         res.redirect('/member/login')
@@ -500,6 +533,7 @@ router.post('/deleteUser',(req,res)=>{
                     res.redirect('/member/admin')
                 }
             })
+            tracking('Admin','Delete user ID : '+userID)
         }
         else
             res.redirect('/member/main')
@@ -672,6 +706,7 @@ router.post('/editProfileForAdmin',upload.single("profile"), (req,res)=>{
                     }
                 })
             }
+            tracking('Admin','Admin edit user profile ID: '+userID)
         }
         else{
             res.redirect('/member/member')
@@ -726,34 +761,9 @@ router.post('/editProfile',upload.single("profile"), (req,res)=>{
                             if(error){
                                 console.log('somethings wrong');
                                 //res.render('member/register', {msg:'Username or Password is used please change!'})  
-                            }
-                            else{
-                                pool.query('SELECT * FROM users WHERE username = ?',[username],(err,results)=>{
-                                    if(err)
-                                        console.log(err)
-                                    else{
-                                        console.log(results[0].userID)
-                                        if(results[0].userID == 1 ){
-                                            //admin_name = results[0].username
-                                            admin_name = results[0].username
-                                            console.log(admin_name)
-                                            console.log(results[0].username)
-                                            console.log('welcome admin')
-                                            res.clearCookie('username')
-                                            res.cookie('username',admin_name,{maxAge:900000})
-                                        }
-                                        else{
-                                            admin_name = ''
-                                            console.log('welcome user')
-                                            res.cookie('username',username,{maxAge:900000})
-                                        }
-                                        res.redirect('/member/member')
-                                    }
-                                })
-                                            // res.cookie('username',username,{maxAge:900000})
-                                            // res.redirect('/member/member')
-                            }
-                                
+                            }    
+                            else
+                                res.redirect('/member/member')
                         })
                     }
                     
@@ -774,35 +784,12 @@ router.post('/editProfile',upload.single("profile"), (req,res)=>{
                     console.log(error);
                     //res.render('member/register', {msg:'Username or Password is used please change!'})  
                 }
-                else{
-                    pool.query('SELECT * FROM users WHERE username = ?',[username],(err,results)=>{
-                        if(err)
-                            console.log(err)
-                        else{
-                            console.log(results[0].userID)
-                            if(results[0].userID == 1 ){
-                                //admin_name = results[0].username
-                                admin_name = results[0].username
-                                console.log(admin_name)
-                                console.log(results[0].username)
-                                console.log('welcome admin')
-                                res.clearCookie('username')
-                                res.clearCookie('username')
-                                res.cookie('username',admin_name,{maxAge:900000})
-                            }
-                            else{
-                                admin_name = ''
-                                console.log('welcome user')
-                                res.cookie('username',username,{maxAge:900000})
-                                
-                            }
-                            res.redirect('/member/member')
-                        }
-                    })
-                }
-                    
+
+                else
+                    res.redirect('/member/member')
             })
         }
+        tracking(user_cookie,'Edit profile')
     }
     else
         res.redirect('/member/login')
@@ -903,6 +890,7 @@ router.post('/userInfoUpdate',upload.single("dataImage"),(req,res) => {
                     res.redirect('/member/admin')
                 }
             })
+            tracking('Admin','Admin update user data ID: '+dataID)
         }
         else
             res.redirect('member/manin')
@@ -978,6 +966,7 @@ router.post('/sendUpdate',upload.single("dataImage"),(req,res) => {
                 res.redirect('/member/member')
             }
         })
+        tracking(user_cookie,'Update post ID: '+dataID)
     }
     else
         res.redirect('/member/login')
@@ -1007,34 +996,11 @@ router.post('/update', (req,res) => {
         res.redirect('/member/login')
 })
 
-router.get('/all',(req,res) =>{
-    const sql = 'SELECT * FROM users'
-    pool.query(sql,(error, results,field) =>{
-        if(error){
-            console.error(error)
-        }
-        else{
-        res.json(results)
-        }
-    })
-})
-
-router.get('/all_info',(req,res) =>{
-    const sql = 'SELECT * FROM user_info'
-    pool.query(sql,(error, results,field) =>{
-        if(error){
-            console.error(error)
-        }
-        else{
-        res.json(results)
-        }
-    })
-})
-
 router.get('/logout',(req,res) =>{
     const username = req.cookies.username;
     console.log('llllll')
     if(username){
+            tracking(username,'Logout')
             res.clearCookie('username')  
             //res.cookie('username')
             
@@ -1042,41 +1008,53 @@ router.get('/logout',(req,res) =>{
     res.redirect('/member/login')
 })
 
-router.post("/upload",
-    upload.single("file" /* name attribute of <file> element in your form */),
-    (req, res) => {
-    const username = req.cookies.username
-    const tempPath = req.file.path;     
-    console.log(tempPath)
-    console.log(tempPath.split('\\path\\to\\temporary\\directory\\to\\store\\uploaded\\files\\')[1])
-    const filename = username + tempPath.split('\\path\\to\\temporary\\directory\\to\\store\\uploaded\\files\\')[1]
-    filename.split(' ')
-
-    const targetPath = path.join(__dirname, "./uploads/" + md5(filename) + ".jpg");
-
-    if ((path.extname(req.file.originalname).toLowerCase() === ".png")||(path.extname(req.file.originalname).toLowerCase() === ".jpg")) {
-        fs.rename(tempPath, targetPath, err => {
-        if (err) return handleError(err, res);
-
-        res
-            .status(200)
-            .contentType("text/plain")
-            .end("File uploaded!");
+router.get('/contact',(req,res) =>{
+    const username = req.cookies.username;
+    if(username){
+        const sql ='SELECT * FROM users WHERE username = ?'
+        pool.query(sql,[username],(err,results)=>{
+            if(err)
+                console.log(err)
+            else
+                res.render('member/contact',{'results':results})
+        })
         
-        });
+    }
         
-    } else {
-        fs.unlink(tempPath, err => {
-        if (err) return handleError(err, res);
-
-        res
-            .status(403)
-            .contentType("text/plain")
-            .end("Only .png files are allowed!");
-        });
-    }
-    }
-);
+    else
+        res.redirect('/member/login')
+})
 
 module.exports = router
 
+function getTime(){
+    var currentdate = new Date();
+    var datetime = currentdate.getFullYear() + "-" + currentdate.getMonth() 
+    + "-" + currentdate.getDay() + " " 
+    + currentdate.getHours() + ":" 
+    + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+    return datetime
+}
+
+function tracking(username,action){
+    console.log('name '+username)
+    var userID
+    pool.query('SELECT userID FROM users WHERE username = ?',[username],(err,result)=>{
+        if(err)
+            console.log(err)
+        else{
+            if(result.length == 0){
+                userID = null
+            }
+            else{
+                userID = result[0].userID
+            }
+            console.log('id '+userID)
+            const sql = 'INSERT INTO user_act(userID,username,action,actiontime) VALUE (?,?,?,?)'
+            pool.query(sql,[userID,username,action,getTime()],(err,result)=>{
+                if(err)
+                    console.log(err)
+            })
+        }
+    })
+}

@@ -13,6 +13,11 @@
     word-wrap: break-word;
 }
 
+.head-text{
+    font-size:3em; 
+    margin-top:30px;
+}
+
 .adder{
     width:  100px;
     height: 100px;
@@ -24,19 +29,9 @@
 
 #stick1{
     position: relative;
-    background-color: rgb(255, 48, 48);
-    box-shadow: 5px 10px 10px rgb(172, 0, 0);
+    background-color: rgb(202, 202, 202);
 }
 
-#stick2{
-    background-color: rgb(255, 255, 255);
-    box-shadow: 5px 10px 10px rgb(192, 192, 192);
-}
-
-#stick3{
-    background-color: rgb(255, 176, 48);
-    box-shadow: 5px 10px 10px rgb(203, 139, 35);
-}
 
 /* #adder{
     background-color: rgb(217, 217, 217);
@@ -49,6 +44,53 @@
 
 .post-head{
     text-align: left;
+}
+
+.home:hover{
+    text-decoration: underline;
+}
+.item:hover{
+    text-decoration: underline;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.offcanvas-button{
+    background-color: blueviolet;
+    color: white;
+}
+
+.offcanvas-button:hover{
+    background-color: rgb(108, 33, 178);
+    color: white;
+}
+
+.offcanvas-button:active{
+    background-color: rgb(108, 33, 178);
+    border: 3px rgba(137, 43, 226, 0.5);
+    color: white;
+}
+    
+.add-box{
+    height: 22em;
+    padding: auto;
+}
+
+.add{
+    position: absolute;
+    height: 18em;
+    width:  18em;
+    top: 50%;
+    margin-top: -9em;
+    left: 50%;
+    margin-left:-9em;
+    background-color: rgba(128, 128, 128, 0.4);
+    border-radius: 50%;
+}
+
+.add-icon{
+    font-size: 12em;
+    color: rgba(0, 0, 0, 0.3);
+
 }
 /* #stick1:hover{
     animation: anim 0.5s;

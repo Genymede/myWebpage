@@ -11,123 +11,159 @@
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../style/users.css">
+    <link rel="stylesheet" href="../style/flex.css">
     <link rel="stylesheet" href="../style/sticky.css">
 
 </head>
 
 <body>
-    <div class="row header" style="background-color: #8d38c9; height:150px;">
-        <div class="col-2">
-            <a href="/member/main"><img class="logo" src="../img/nerv.png"></a>
-        </div>
-        <div class="col-10">
-            <h1>UP LOST AND FOUND</h1>
-        </div>
-    </div>
-    <nav class="navbar navbar-light " style="background-color: #eba800;">
+    <div class="wrapper">
+        <header class="header">
+            <div class="row header text-center" style="background-color: #8d38c9;">
+                <div class="col-md-3" style="margin-bottom: 10px;">
+            <a href="/member/main"><img class="logo" src="../img/nerv.png" alt="logo"></a>
+                </div>
+                <div class="col-md-6">
+                    <h1 class="head-text">UP LOST AND FOUND</h1>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #eba800;">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-menu"
-                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-brand navbar-toggler d-block" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#side-menu" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <input class="form-control me-2" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"
+
+            <a class="navbar-brand home" href="/member/main">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item item">
+                        <a class="nav-link" href="/member/member">Your account</a>
+                    </li>
+                    <li class="nav-item item">
+                        <a class="nav-link" href="/member/contact">Contact us</a>
+                    </li>
+                </ul>
+
+            </div>
+            <input class="form-control me-2 d-flex" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"
                 style="width:20em; border-radius: 40px;">
         </div>
     </nav>
-    <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
-    <div class="offcanvas offcanvas-menu offcanvas-start" tabindex="-1" id="side-menu" aria-labelledby="side-menu">
-        <div class="offcanvas-header">
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="/member/member"><img style="border-radius:50%;" id="user-image"
-                            src="/{{#watcher}}{{userImage}}{{/watcher}}"></a>
+        </header>
+        <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
+        <div class="offcanvas offcanvas-menu offcanvas-start" tabindex="-1" id="side-menu" aria-labelledby="side-menu">
+            <div class="offcanvas-header">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="/member/member"><img style="border-radius:50%;" id="user-image"
+                                src="/{{#watcher}}{{userImage}}{{/watcher}}"></a>
+                    </div>
+                    <div class="col-md-6 text-black-50 text-end">
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <h3 style="margin: 10px;">{{#watcher}}{{username}}{{/watcher}}</h3>
                 </div>
-                <div class="col-md-6 text-black-50 text-end">
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <h3 style="margin: 10px;">{{#watcher}}{{username}}{{/watcher}}</h3>
+            </div>
+            <div class="offcanvas-body">
+                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/member/member'">Your
+                    Account</button>
+                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/member/logout'">Log
+                    out</button>
             </div>
         </div>
-        <div class="offcanvas-body">
-            <button class="menu-button btn btn-danger" onclick="window.location.href='/member/member'">Your
-                Account</button>
-            <button class="menu-button btn btn-danger" href="#">Another action</button>
-            <button class="menu-button btn btn-danger" onclick="window.location.href='/member/logout'">Log out</button>
-        </div>
-    </div>
-    <div class="row aside" id="show-info">
-        <div class="col-3" id="side-menu">
-            {{#user}}
-                <div class="row showuser">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <img id="user-image" src="/{{userImage}}" alt="user-profile"
-                                style="border-radius:50%; margin: 5px;">
+        <div class="row aside" id="show-info">
+            <div class="col-3 side side1" id="side-menu" style="width:20em;">
+                {{#user}}
+                    <div class="row showuser">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img id="user-image" src="/{{userImage}}" alt="user-profile"
+                                    style="border-radius:50%; margin: 5px;">
+                            </div>
+                            <div class="col-md-9">
+                                <h5 style="margin: 25px;">{{username}}</h5>
+                            </div>
                         </div>
-                        <div class="col-md-9">
-                            <h5 style="margin: 25px;">{{username}}</h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6" style="margin:5px">
-                            <p id="score">score: {{avgScore}}/5</p>
-                            <p>ID: {{studentID}}</p>
-                            <p>Name: {{firstname}} {{lastname}}</p>
-                            <p>Faculty: {{faculty}} Major: {{major}}</p>
-                            <h5>score: {{avgScore}}</h5>
+                        <div class="row">
+                            <div class="col-md-6" style="margin:5px">
+                                <p id="score">score: {{avgScore}}/5</p>
 
+                                <p>User info</p>
+                                <div style="color:rgb(0,0,0,0.6);">
+                                    <p>ID: {{studentID}}</p>
+                                    <p>Name: {{firstname}} {{lastname}}</p>
+                                    <p>Faculty: {{faculty}} Major: {{major}}</p>
+                                </div>
+
+                                <p>Contact</p>
+                                <div style="color:rgb(0,0,0,0.6);">
+                                    <p>Facebook: {{facebook}}</p>
+                                    <p>Instagram: {{instagram}}</p>
+                                    <p>X: {{x}}</p>
+                                </div>
+
+                            </div>
                         </div>
+                        <form action="/member/score" method="post">
+                            <input type="hidden" id="userID" name="userID" value="{{userID}}" required>
+                            <input type="hidden" id="reviewerID" name="reviewerID"
+                                value="{{#watcher}}{{userID}}{{/watcher}}" required>
+                            <div class="form-row">
+                                <select name="score" class="col-md-1 mb-3 form-control">
+                                    <option selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <button class="col-md-3 btn btn-danger text-center" type="submit">Review score</button>
+                            </div>
+                        </form>
                     </div>
-                    <form action="/member/score" method="post">
-                        <input type="hidden" id="userID" name="userID" value="{{userID}}" required>
-                        <input type="hidden" id="reviewerID" name="reviewerID"
-                            value="{{#watcher}}{{userID}}{{/watcher}}" required>
-                        <div class="form-row">
-                            <select name="score" class="col-md-1 mb-3 form-control">
-                                <option selected>0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <button class="col-md-3 btn btn-danger text-center" type="submit">Review score</button>
-                        </div>
-                    </form>
-                </div>
-            {{/user}}
-        </div>
-        <div class="col-9">
-            <div class="main-layout">
-                <div class="col-11 main-layout text-center">
-                    {{#results}}
-                        <div class="card main-layout text-center" id="stick2" style="width: 22rem;">
-                            <img class="card-img-top img" id="show-image" src="/{{image}}" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title username" id="username">{{username}}</h5>
+                {{/user}}
+            </div>
+            <div class="col-9 main">
+                <div class="main-layout">
+                    <div class="col-11 main-layout text-center">
+                        {{#results}}
+                            <div class="card main-layout text-center" id="stick2" style="width: 23rem;">
+                                <img class="card-img-top img" id="show-image" src="/{{image}}" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title username" id="username">{{username}}</h5>
+                                    <div>
+                                        <p class="text-center date" id="datetime" style="font-size:14px;">
+                                            {{detail_time}}
+                                        </p>
+                                        <p class="card-text text-center detail" id="detail" style="height: 10em; ">
+                                            {{details}}</p>
+                                        <p id="card-status" class="card-text text-buttom status">{{status}}</p>
+                                    </div>
+                                </div>
                                 <div>
-                                    <p class="text-center date" id="datetime" style="font-size:14px;">{{detail_time}}</p>
-                                    <p class="card-text text-center detail" id="detail" style="height: 10em; ">
-                                        {{details}}</p>
-                                    <p id="card-status" class="card-text text-buttom status">{{status}}</p>
+                                    <form action="/member/seepost" method="post">
+                                        <input type="hidden" name="dataID" value="{{dataID}}" required>
+                                        <button type="submit" class="btn"
+                                            style="background-color:#8d38c9; color:white;">
+                                            See post
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
-                            <div>
-                                <form action="/member/seepost" method="post">
-                                    <input type="hidden" name="dataID" value="{{dataID}}" required>
-                                    <button type="submit" class="btn" style="background-color:#8d38c9; color:white;">
-                                        See post
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    {{/results}}
+                        {{/results}}
 
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
     <script src="../style/stycky.js"></script>
 

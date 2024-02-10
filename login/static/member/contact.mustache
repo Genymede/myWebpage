@@ -60,19 +60,19 @@
                     <div class="row">
                         <div class="col-md-6">
                             <a href="/member/member"><img style="border-radius:50%;" id="user-image"
-                                    src="/{{#admin}}{{userImage}}{{/admin}}" alt="profile"></a>
+                                    src="/{{#results}}{{userImage}}{{/results}}" alt="profile"></a>
                         </div>
                         <div class="col-md-6 text-black-50 text-end">
                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
-                        <h3 style="margin: 10px;">{{#admin}}{{username}}{{/admin}}</h3>
+                        <h3 style="margin: 10px;">{{#results}}{{username}}{{/results}}</h3>
                     </div>
                 </div>
                 <div class="offcanvas-body">
-                    <button class="menu-button btn btn-danger" onclick="window.location.href='/member/member'">Your
+                    <button class="menu-button btn offcanvas-button" onclick="window.location.href='/member/member'">Your
                         Account</button>
-                    <button class="menu-button btn btn-danger" onclick="window.location.href='/member/logout'">Log
+                    <button class="menu-button btn offcanvas-button" onclick="window.location.href='/member/logout'">Log
                         out</button>
                 </div>
             </div>

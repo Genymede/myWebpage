@@ -16,20 +16,38 @@
 </head>
 
 <body>
-    <div class="row header" style="background-color: #8d38c9; height:150px;">
-        <div class="col-2">
-            <a href="/member/main"><img class="logo" src="../img/nerv.png"></a>
+    <div class="row header text-center" style="background-color: #8d38c9;">
+        <div class="col-md-3" style="margin-bottom: 10px;">
+            <a href="/member/main"><img class="logo" src="../img/nerv.png" alt="logo"></a>
         </div>
-        <div class="col-10">
-            <h1>UP LOST AND FOUND</h1>
+        <div class="col-md-6">
+            <h1 class="head-text">UP LOST AND FOUND</h1>
         </div>
     </div>
-    <nav class="navbar navbar-light " style="background-color: #eba800;">
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #eba800;">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-menu"
-                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-brand navbar-toggler d-block" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#side-menu" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <a class="navbar-brand home" href="/member/main">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item item">
+                        <a class="nav-link" href="/member/member">Your account</a>
+                    </li>
+                    <li class="nav-item item">
+                        <a class="nav-link" href="/member/contact">Contact us</a>
+                    </li>
+                </ul>
+
+            </div>
         </div>
     </nav>
     <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
@@ -38,7 +56,8 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <a href="/member/member" ><img style="border-radius:50%;" id="user-image" src="/{{#user}}{{userImage}}{{/user}}"></a>
+                    <a href="/member/member"><img style="border-radius:50%;" id="user-image"
+                            src="/{{#user}}{{userImage}}{{/user}}"></a>
                 </div>
                 <div class="col-md-6 text-black-50 text-end">
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
@@ -48,10 +67,9 @@
             </div>
         </div>
         <div class="offcanvas-body">
-            <button class="menu-button btn btn-danger" onclick="window.location.href='/member/member'">Your
+            <button class="menu-button btn offcanvas-button" onclick="window.location.href='/member/member'">Your
                 Account</button>
-            <button class="menu-button btn btn-danger" href="#">Another action</button>
-            <button class="menu-button btn btn-danger" onclick="window.location.href='/member/logout'">Log out</button>
+            <button class="menu-button btn offcanvas-button" onclick="window.location.href='/member/logout'">Log out</button>
         </div>
     </div>
 
@@ -60,44 +78,45 @@
         <div class="col-2" id="side-menu"></div>
         <div class="col-8">
             {{#results}}
-            <div class="main-layout">
-                <div class="row showuser" style="background-color: #dbdbdb;">
+                <div class="main-layout">
+                    <div class="row showuser" style="background-color: #dbdbdb;">
                         <form action="/member/users" id="userinfo" method="post">
                             <input type="hidden" id="username" name="username" value="{{username}}">
                             <input type="hidden" id="userID" name="userID" value="{{userID}}">
                             <button type="submit" style="background:transparent; border:none;">
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <img id="user-image" src="/{{userImage}}" alt="user-profile" style="border-radius:50%; margin: 5px;">
+                                        <img id="user-image" src="/{{userImage}}" alt="user-profile"
+                                            style="border-radius:50%; margin: 5px;">
                                     </div>
                                     <div class="col-md-10">
                                         <h3 style="margin: 25px;">{{username}}</h3>
                                     </div>
-                                <div>
+                                    <div>
                             </button>
                         </form>
-                </div>
-                <div class="row" style="background-color: white;">
-                    <div class="col showdetail">
-                        <div class="row" style="margin:5px;">
-                            <div class="status">
-                                <p>Status:{{status}}</p>
-                                <p class="text-start date" id="datetime" style="font-size:14px;">{{detail_time}}</p>
+                    </div>
+                    <div class="row" style="background-color: white;">
+                        <div class="col showdetail">
+                            <div class="row" style="margin:5px;">
+                                <div class="status">
+                                    <p>Status:{{status}}</p>
+                                    <p class="text-start date" id="datetime" style="font-size:14px;">{{detail_time}}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row-mb-5">
-                            <img class="post" id="imgpost" src="/{{image}}" alt="img">
-                        </div>
-                        <div class="row">
-                            <div id="content">
-                                
-                                <p id="detail">Detail: <br>{{details}}</p>
+                            <div class="row-mb-5">
+                                <img class="post" id="imgpost" src="/{{image}}" alt="img">
+                            </div>
+                            <div class="row">
+                                <div id="content">
+
+                                    <p id="detail">Detail: <br>{{details}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                </div>
             {{/results}}
         </div>
     </div>
@@ -109,9 +128,9 @@
         console.log(img.src)
         src = img.getAttribute('src')
         console.log(src)
-        if(src == '/'){
+        if (src == '/') {
             img.style.display = "none"
-        }else{
+        } else {
             console.log('src')
         }
     </script>
