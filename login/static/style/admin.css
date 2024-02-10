@@ -6,14 +6,8 @@ body{
 .header{
     background-color: rgb(255, 64, 64);
     color: rgb(228, 228, 236);
-    padding: 20px;
+    padding: 10px;
     text-align: center;
-}
-
-.logo{
-    height: 7em;
-    width:  7em;
-    object-fit: cover;
 }
 
 .aside{

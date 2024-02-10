@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin page</title>
+    <link rel="icon" type="image/x-icon" href="../logo/favicon.ico">
     <link rel="stylesheet" href="../style/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
@@ -18,43 +19,43 @@
 <body>
 
     <div class="col" style="width:1500px">
-        <div class="row header text-center" style="background-color: #8d38c9;">
-        <div class="col-md-3" style="margin-bottom: 10px;">
-            <a href="/member/main"><img class="logo" src="../img/nerv.png" alt="logo"></a>
+        <div class="row header text-center" style="background-color: #5800bb;">
+            <div class="col-md-3">
+                <a href="/member/main"><img class="logo" src="../img/Logo_side_full.png" alt="logo"></a>
+            </div>
+            <div class="col-md-6">
+                <h1 class="head-text">UP LOST AND FOUND</h1>
+            </div>
         </div>
-        <div class="col-md-6">
-            <h1 class="head-text">UP LOST AND FOUND</h1>
-        </div>
-    </div>
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #eba800;">
-        <div class="container-fluid">
-            <button class="navbar-brand navbar-toggler d-block" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#side-menu" aria-controls="navbarToggleExternalContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <div class="container-fluid">
+                    <button class="navbar-brand navbar-toggler d-block" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#side-menu" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-            <a class="navbar-brand home" href="/member/main">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item item">
-                        <a class="nav-link" href="/member/member">Your account</a>
-                    </li>
-                    <li class="nav-item item">
-                        <a class="nav-link" href="/member/userActivity">User Activities</a>
-                    </li>
-                </ul>
+                    <a class="navbar-brand home" href="/member/main">Home</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item item">
+                                <a class="nav-link" href="/member/member">Your account</a>
+                            </li>
+                            <li class="nav-item item">
+                                <a class="nav-link" href="/member/userActivity">User Activities</a>
+                            </li>
+                        </ul>
 
-            </div>
-            <input class="form-control me-2 d-flex" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"
-                style="width:20em; border-radius: 40px;">
-        </div>
-    </nav>
+                    </div>
+                    <input class="form-control me-2 d-flex" type="text" id="myInput" onkeyup="myFunction()"
+                        placeholder="Search" style="width:20em; border-radius: 40px;">
+                </div>
+            </nav>
         </div>
         <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
         <div class="row">
@@ -75,7 +76,8 @@
                     </div>
                 </div>
                 <div class="offcanvas-body">
-                    <button class="menu-button btn offcanvas-button" onclick="window.location.href='/member/member'">Your
+                    <button class="menu-button btn offcanvas-button"
+                        onclick="window.location.href='/member/member'">Your
                         Account</button>
                     <button class="menu-button btn offcanvas-button"
                         onclick="window.location.href='/member/userActivity'">User activities</button>
@@ -144,61 +146,66 @@
             </tbody>
         </table>
 
-    <script>
-        function myFunction() {
-            var input, filter, tableSearch, tableData, a, i, userID, username, email, studentID, firstname, lastname,
-                faculty, major, phonenumber, fb, ig, x;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            console.log(input.value)
-            tableSearch = document.querySelectorAll("#userData");
-            //tableData = tableSearch.getElementsByTagName("td");
-            classID = document.getElementsByClassName('userid')
-            classUsername = document.getElementsByClassName('username')
-            classEmail = document.getElementsByClassName('email')
-            classFirstname = document.getElementsByClassName('firstname')
-            classLastname = document.getElementsByClassName('lastname')
-            classStudentID = document.getElementsByClassName('studentid')
-            classFaculty = document.getElementsByClassName('faculty')
-            classMajor = document.getElementsByClassName('major')
-            classPhonenumber = document.getElementsByClassName('phonenumber')
-            classFacebook = document.getElementsByClassName('fb')
-            classInsatagram = document.getElementsByClassName('ig')
-            classX = document.getElementsByClassName('x')
-            //console.log(classUsername[0].innerText)
-            //console.log(username = classUsername[0].innerText)
-            i = 0
-            tableSearch.forEach(element => {
-                userID = classID[i].innerText
-                username = classUsername[i].innerText
-                email = classEmail[i].innerText
-                studentID = classStudentID[i].innerText
-                firstname = classFirstname[i].innerText
-                lastname = classLastname[i].innerText
-                faculty = classFaculty[i].innerText
-                major = classMajor[i].innerText
-                phonenumber = classPhonenumber[i].innerText
-                fb = classFacebook[i].innerText
-                ig = classInsatagram[i].innerText
-                x = classX[i].innerText
-                if ((userID.toUpperCase().indexOf(filter) > -1) || (username.toUpperCase().indexOf(filter) > -
-                    1) ||
-                    (email.toUpperCase().indexOf(filter) > -1) || (studentID.toUpperCase().indexOf(filter) > -
-                    1) ||
-                    (firstname.toUpperCase().indexOf(filter) > -1) || (lastname.toUpperCase().indexOf(filter) >
-                        -1) ||
-                    (faculty.toUpperCase().indexOf(filter) > -1) || (major.toUpperCase().indexOf(filter) > -
-                    1) ||
-                    (phonenumber.toUpperCase().indexOf(filter) > -1) || (fb.toUpperCase().indexOf(filter) > -
-                    1) ||
-                    (ig.toUpperCase().indexOf(filter) > -1) || (x.toUpperCase().indexOf(filter) > -1))
-                    tableSearch[i].style.display = ""
-                else
-                    tableSearch[i].style.display = "none"
-                i++
-            })
-        }
-    </script>
+        <script>
+            function myFunction() {
+                var input, filter, tableSearch, tableData, a, i, userID, username, email, studentID, firstname,
+                    lastname,
+                    faculty, major, phonenumber, fb, ig, x;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                console.log(input.value)
+                tableSearch = document.querySelectorAll("#userData");
+                //tableData = tableSearch.getElementsByTagName("td");
+                classID = document.getElementsByClassName('userid')
+                classUsername = document.getElementsByClassName('username')
+                classEmail = document.getElementsByClassName('email')
+                classFirstname = document.getElementsByClassName('firstname')
+                classLastname = document.getElementsByClassName('lastname')
+                classStudentID = document.getElementsByClassName('studentid')
+                classFaculty = document.getElementsByClassName('faculty')
+                classMajor = document.getElementsByClassName('major')
+                classPhonenumber = document.getElementsByClassName('phonenumber')
+                classFacebook = document.getElementsByClassName('fb')
+                classInsatagram = document.getElementsByClassName('ig')
+                classX = document.getElementsByClassName('x')
+                //console.log(classUsername[0].innerText)
+                //console.log(username = classUsername[0].innerText)
+                i = 0
+                tableSearch.forEach(element => {
+                    userID = classID[i].innerText
+                    username = classUsername[i].innerText
+                    email = classEmail[i].innerText
+                    studentID = classStudentID[i].innerText
+                    firstname = classFirstname[i].innerText
+                    lastname = classLastname[i].innerText
+                    faculty = classFaculty[i].innerText
+                    major = classMajor[i].innerText
+                    phonenumber = classPhonenumber[i].innerText
+                    fb = classFacebook[i].innerText
+                    ig = classInsatagram[i].innerText
+                    x = classX[i].innerText
+                    if ((userID.toUpperCase().indexOf(filter) > -1) || (username.toUpperCase().indexOf(filter) >
+                            -
+                            1) ||
+                        (email.toUpperCase().indexOf(filter) > -1) || (studentID.toUpperCase().indexOf(filter) >
+                            -
+                            1) ||
+                        (firstname.toUpperCase().indexOf(filter) > -1) || (lastname.toUpperCase().indexOf(
+                                filter) >
+                            -1) ||
+                        (faculty.toUpperCase().indexOf(filter) > -1) || (major.toUpperCase().indexOf(filter) > -
+                            1) ||
+                        (phonenumber.toUpperCase().indexOf(filter) > -1) || (fb.toUpperCase().indexOf(filter) >
+                            -
+                            1) ||
+                        (ig.toUpperCase().indexOf(filter) > -1) || (x.toUpperCase().indexOf(filter) > -1))
+                        tableSearch[i].style.display = ""
+                    else
+                        tableSearch[i].style.display = "none"
+                    i++
+                })
+            }
+        </script>
 </body>
 
 </html>

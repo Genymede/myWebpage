@@ -1,3 +1,19 @@
+
+checkPost = document.querySelectorAll('#stick2')
+noPost = document.getElementById('no-post')
+
+console.log(noPost.innerText)
+console.log(checkPost.length)
+
+if(checkPost.length == 0){
+    noPost.style.display = ""
+    console.log('0')
+}
+else{
+    console.log(checkPost.length)
+    noPost.style.display = "none"
+}
+
 cardTitleCollection = document.getElementsByClassName('status');
 stickElement = document.querySelectorAll("#card-status")
 stickCard = document.querySelectorAll("#stick2")

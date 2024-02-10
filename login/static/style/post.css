@@ -11,12 +11,6 @@ body{
     text-align: center;
 }
 
-.logo{
-    height: 7em;
-    width:  7em;
-    object-fit: cover;
-}
-
 .aside{
     background-color: #f4f4f4;
 }
