@@ -111,6 +111,10 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.navbar{
+    padding: 10px;
+}
 /* #stick1:hover{
     animation: anim 0.5s;
     top: -10px;

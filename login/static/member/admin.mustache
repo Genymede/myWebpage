@@ -145,8 +145,13 @@
                 {{/results}}
             </tbody>
         </table>
-
         <script>
+            const fs = require("fs");
+            userImage = document.getElementById('user-image')
+            if(fs.existsSync(userImage.src)){
+                console.log('found image')
+            }
+
             function myFunction() {
                 var input, filter, tableSearch, tableData, a, i, userID, username, email, studentID, firstname,
                     lastname,

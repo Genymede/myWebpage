@@ -1,4 +1,5 @@
 
+
 checkPost = document.querySelectorAll('#stick2')
 noPost = document.getElementById('no-post')
 

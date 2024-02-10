@@ -42,7 +42,39 @@ pool.query('SELECT username FROM users WHERE userID = 1',(err,results)=>{
     }  
 })
 
-//pool.query('SELECT * FROM users')
+const checkUserImage = 'SELECT * FROM users'
+pool.query(checkUserImage,(err,results)=>{
+    if(err)
+        console.log(err)
+    else{
+        for (let i = 0; i < results.length; i++) {
+            //console.log(results[i].userImage)
+            if(!(fs.existsSync('static/' + results[i].userImage))){
+                console.log('image not found')
+                pool.query('UPDATE users SET userImage = ? WHERE userID = ?',['userProfile/prof2.jpg',results[i].userID],(err,imgresult) =>{
+                    if(err)
+                        console.log(err)
+                })
+            }
+        }
+    }
+})
+
+pool.query('SELECT * FROM user_info',(err,results)=>{
+    if(err)
+        console.log(err)
+    else{
+        for (let i = 0; i < results.length; i++) {
+            if(!(fs.existsSync('static/' + results[i].image))){
+                console.log('image not found')
+                pool.query('UPDATE user_info SET image = ? WHERE dataID = ?',['img/white_bg.jpg',results[i].dataID],(err,imgresult) =>{
+                    if(err)
+                        console.log(err)
+                })
+            }
+        }
+    }
+})
 
 router.use(bdyParser.urlencoded({extended:true}))
 router.use(bdyParser.json())
