@@ -22,7 +22,7 @@
         <header class="header">
             <div class="row header text-center" style="background-color: #5800bb;">
                 <div class="col-md-3" >
-            <a href="/member/main"><img class="logo" src="../img/Logo_side_full.png" alt="logo"></a>
+            <a href="/g65102/main"><img class="logo" src="../img/Logo_side_full.png" alt="logo"></a>
                 </div>
                 <div class="col-md-6">
                     <h1 class="head-text">UP LOST AND FOUND</h1>
@@ -36,7 +36,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <a class="navbar-brand home" href="/member/main">Home</a>
+                    <a class="navbar-brand home" href="/g65102/main">Home</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -44,10 +44,10 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item item">
-                                <a class="nav-link" href="/member/member">Your account</a>
+                                <a class="nav-link" href="/g65102/member">Your account</a>
                             </li>
                             <li class="nav-item item">
-                                <a class="nav-link" href="/member/contact">Contact us</a>
+                                <a class="nav-link" href="/g65102/contact">Contact us</a>
                             </li>
                         </ul>
 
@@ -63,20 +63,20 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="/member/member"><img style="border-radius:50%;" id="user-image"
+                        <a href="/g65102/member"><img style="border-radius:50%;" id="user-image"
                                 src="/{{#user}}{{userImage}}{{/user}}"></a>
                     </div>
                     <div class="col-md-6 text-black-50 text-end">
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                             aria-label="Close"></button>
                     </div>
-                    <h3 style="margin: 10px;">{{#username}}{{.}}{{/username}}</h3>
+                    <h3 style="margin: 10px;">{{#user}}{{username}}{{/user}}</h3>
                 </div>
             </div>
             <div class="offcanvas-body" id="menu">
-                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/member/member'">Your
+                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/member'">Your
                     Account</button>
-                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/member/logout'">Log
+                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/logout'">Log
                     out</button>
             </div>
         </div>
@@ -129,7 +129,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="/member/editProfile" enctype="multipart/form-data" id="updateProfile"
+                                    <form action="/g65102/editProfile" enctype="multipart/form-data" id="updateProfile"
                                         method="post">
                                         <input type="hidden" id="userID" name="userID" value="{{userID}}" required>
                                         <div class="form-row mb-3">
@@ -235,7 +235,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 mb-1">
-                                        <form action="/member/update" method="post">
+                                        <form action="/g65102/update" method="post">
                                             <input type="hidden" name="dataID" value="{{dataID}}" required>
                                             <button type="submit" class="btn btn-primary">
                                                 Edit <i class="bi bi-pen"></i>
@@ -243,7 +243,7 @@
                                         </form>
                                     </div>
                                     <div class="col-md-4 mb-1">
-                                        <form action="/member/seepost" method="post">
+                                        <form action="/g65102/seepost" method="post">
                                             <input type="hidden" name="userID" value="{{userID}}" required>
                                             <input type="hidden" name="dataID" value="{{dataID}}" required>
                                             <button type="submit" class="btn"
@@ -253,7 +253,7 @@
                                         </form>
                                     </div>
                                     <div class="col-md-4 mb-1">
-                                        <form action="/member/delete" method="post"
+                                        <form action="/g65102/delete" method="post"
                                             onsubmit="return confirm('Are you sure you want to delete?');">
                                             <input type="hidden" name="dataID" value="{{dataID}}" required>
                                             <button type="submit" class="btn btn-danger">
@@ -264,7 +264,7 @@
                                 </div>
                             </div>
                         {{/results}}
-                        <a href='/member/add' id="posted-link">
+                        <a href='/g65102/add' id="posted-link">
                             <div class="card text-center" id="stick1" style="width: 23rem;">
                                 <div class="card-body">
                                     <div class="add-box">

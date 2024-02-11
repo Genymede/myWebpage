@@ -7,7 +7,8 @@ const cookie = require('cookie-parser')
 const md5 = require('md5')
 const fs = require("fs");
 const multer = require("multer");
-const e = require('express')
+
+console.log(getTime())
 
 const handleError = (err, res) => {
 res
@@ -16,7 +17,7 @@ res
     .end("Oops! Something went wrong!");
 };
 
-require('dotenv').config()  
+require('dotenv').config({path: __dirname + "/.env"})  
 
 const upload = multer({
     dest: "/path/to/temporary/directory/to/store/uploaded/files"
@@ -80,7 +81,7 @@ router.use(bdyParser.urlencoded({extended:true}))
 router.use(bdyParser.json())
 
 router.get('/',(req,res) => {
-    res.redirect('/member/login')
+    res.redirect('/g65102/login')
     // res.send('Location Route')
     // res.end()
 })
@@ -88,7 +89,7 @@ router.get('/',(req,res) => {
 router.get('/login',(req,res) => {
     const username = req.cookies.username
     if(username){
-        res.redirect('/member/admin')
+        res.redirect('/g65102/admin')
     }
     else
         res.render('member/login')  
@@ -129,7 +130,7 @@ router.post('/signup',upload.single("profile"),(req,res) => {
                             //res.render('member/register', {msg:'Username or Password is used please change!'})  
                         }
                         else
-                            res.redirect('/member/member')
+                            res.redirect('/g65102/member')
                     })
                 });
             }
@@ -148,7 +149,7 @@ router.post('/signup',upload.single("profile"),(req,res) => {
                     //res.render('member/register', {msg:'Username or Password is used please change!'})  
                 }
                 else
-                    res.redirect('/member/member')
+                    res.redirect('/g65102/member')
             })
         }
     }
@@ -197,7 +198,7 @@ router.get('/member',(req,res) => {
         });
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
     
 })
 
@@ -240,7 +241,7 @@ router.get('/main',(req,res) => {
         });
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/verify', (req,res) => {
@@ -267,13 +268,13 @@ router.post('/verify', (req,res) => {
                                 admin_name = results[0].username
                                 console.log('welcome admin')
                                 res.cookie('username',admin_name,{maxAge:900000})
-                                res.redirect('/member/admin')
+                                res.redirect('/g65102/admin')
                             }
                             else{
                                 admin_name = ''
                                 console.log('welcome user')
                                 res.cookie('username',username,{maxAge:900000})
-                                res.redirect('/member/main')
+                                res.redirect('/g65102/main')
                             }
                         }
                     })
@@ -284,7 +285,7 @@ router.post('/verify', (req,res) => {
         
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.get('/admin',(req,res)=>{
@@ -310,11 +311,11 @@ router.get('/admin',(req,res)=>{
             })
         }
         else{
-            res.redirect('/member/member')
+            res.redirect('/g65102/member')
         }
     }
     else{
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
     }
 })
 
@@ -340,11 +341,11 @@ router.get('/userActivity',(req,res)=>{
             })
         }
         else{
-            res.redirect('/member/member')
+            res.redirect('/g65102/member')
         }
     }
     else{
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
     }
 })
 
@@ -369,10 +370,10 @@ router.post('/send',upload.single("dataImage"), (req,res) => {
                             pool.query(insert,[userImage[1].replace(' ',''),results[0].ID,details,detail_time],(err,reslt) => {
                                 if(err){
                                     console.log(err)
-                                    res.redirect('/member/member')
+                                    res.redirect('/g65102/member')
                                 }
                                 else{
-                                    res.redirect('/member/member')
+                                    res.redirect('/g65102/member')
                                 }
                             })
                         })
@@ -392,10 +393,10 @@ router.post('/send',upload.single("dataImage"), (req,res) => {
                 pool.query(insert,[results[0].ID,details,detail_time],(err,reslt) => {
                     if(err){
                         console.log(err)
-                        res.redirect('/member/member')
+                        res.redirect('/g65102/member')
                     }
                     else{
-                        res.redirect('/member/member')
+                        res.redirect('/g65102/member')
                     }
                 })
             })
@@ -403,7 +404,7 @@ router.post('/send',upload.single("dataImage"), (req,res) => {
         tracking(user_cookie,'Add post')
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/seepost',(req,res)=> {
@@ -426,7 +427,7 @@ router.post('/seepost',(req,res)=> {
         })
     }
     else{
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
     }
 })
 
@@ -435,7 +436,7 @@ router.post('/users',(req,res)=>{
     const user_cookie = req.cookies.username
     if(user_cookie){
         if(username == user_cookie){
-            res.redirect('/member/member')
+            res.redirect('/g65102/member')
         }
         else{
             const sql = 'SELECT * FROM users WHERE userID = ?'
@@ -465,7 +466,7 @@ router.post('/users',(req,res)=>{
         }
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/delete', (req,res) => {
@@ -479,13 +480,13 @@ router.post('/delete', (req,res) => {
             }
             else{
                 console.log('deleted')
-                res.redirect('/member/member')
+                res.redirect('/g65102/member')
             }
         })
         tracking(user_cookie,'Delete post ID:  '+dataID)
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/deleteUser',(req,res)=>{
@@ -499,16 +500,16 @@ router.post('/deleteUser',(req,res)=>{
                     console.log(err)
                 }
                 else{
-                    res.redirect('/member/admin')
+                    res.redirect('/g65102/admin')
                 }
             })
             tracking('Admin','Delete user ID : '+userID)
         }
         else
-            res.redirect('/member/main')
+            res.redirect('/g65102/main')
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 
 })
 
@@ -535,10 +536,10 @@ router.post('/editUser',(req,res)=>{
             })
         }
         else
-            res.redirect('/member/main')
+            res.redirect('/g65102/main')
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/score',(req,res)=>{
@@ -575,7 +576,7 @@ router.post('/score',(req,res)=>{
                             if(err)
                                 console.log(err)
                         })
-                        res.redirect('/member/main')
+                        res.redirect('/g65102/main')
                         //res.render('member/memberForUpdate',{'user':userResults,'results':infoResults})
                     }
                 })
@@ -583,7 +584,7 @@ router.post('/score',(req,res)=>{
         })
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/editProfileForAdmin',upload.single("profile"), (req,res)=>{
@@ -614,7 +615,7 @@ router.post('/editProfileForAdmin',upload.single("profile"), (req,res)=>{
                                 else{
                                     res.clearCookie('username')
                                     res.cookie('username',admin_name,{maxAge:900000})
-                                    res.redirect('/member/admin')
+                                    res.redirect('/g65102/admin')
                                 }
                                     
                             })
@@ -639,19 +640,19 @@ router.post('/editProfileForAdmin',upload.single("profile"), (req,res)=>{
                     else{
                         res.clearCookie('username')
                         res.cookie('username',admin_name,{maxAge:900000})
-                        res.redirect('/member/admin')
+                        res.redirect('/g65102/admin')
                     }
                 })
             }
             tracking('Admin','Admin edit user profile ID: '+userID)
         }
         else{
-            res.redirect('/member/member')
+            res.redirect('/g65102/member')
         }
         
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/editProfile',upload.single("profile"), (req,res)=>{
@@ -679,7 +680,7 @@ router.post('/editProfile',upload.single("profile"), (req,res)=>{
                                 //res.render('member/register', {msg:'Username or Password is used please change!'})  
                             }    
                             else
-                                res.redirect('/member/member')
+                                res.redirect('/g65102/member')
                         })
                     }
                     
@@ -701,13 +702,13 @@ router.post('/editProfile',upload.single("profile"), (req,res)=>{
                 }
 
                 else
-                    res.redirect('/member/member')
+                    res.redirect('/g65102/member')
             })
         }
         tracking(user_cookie,'Edit profile')
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/updateUser', (req,res) => {
@@ -726,11 +727,11 @@ router.post('/updateUser', (req,res) => {
             })
         }
         else{
-            res.redirect('/member/main')
+            res.redirect('/g65102/main')
         }
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/userInfoUpdate',upload.single("dataImage"),(req,res) => {
@@ -783,7 +784,7 @@ router.post('/userInfoUpdate',upload.single("dataImage"),(req,res) => {
                     console.log('cannot update')
                 }
                 else{
-                    res.redirect('/member/admin')
+                    res.redirect('/g65102/admin')
                 }
             })
             tracking('Admin','Admin update user data ID: '+dataID)
@@ -792,7 +793,7 @@ router.post('/userInfoUpdate',upload.single("dataImage"),(req,res) => {
             res.redirect('member/manin')
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.post('/sendUpdate',upload.single("dataImage"),(req,res) => {
@@ -845,13 +846,13 @@ router.post('/sendUpdate',upload.single("dataImage"),(req,res) => {
                 console.log(error)
             }
             else{
-                res.redirect('/member/member')
+                res.redirect('/g65102/member')
             }
         })
         tracking(user_cookie,'Update post ID: '+dataID)
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
     
 })
 
@@ -870,7 +871,7 @@ router.post('/update', (req,res) => {
         })
     }
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 router.get('/logout',(req,res) =>{
@@ -881,7 +882,7 @@ router.get('/logout',(req,res) =>{
             //res.cookie('username')
             
     }
-    res.redirect('/member/login')
+    res.redirect('/g65102/login')
 })
 
 router.get('/contact',(req,res) =>{
@@ -898,7 +899,7 @@ router.get('/contact',(req,res) =>{
     }
         
     else
-        res.redirect('/member/login')
+        res.redirect('/g65102/login')
 })
 
 module.exports = router
@@ -906,7 +907,7 @@ module.exports = router
 function getTime(){
     var currentdate = new Date();
     var datetime = currentdate.getFullYear() + "-" + currentdate.getMonth() 
-    + "-" + currentdate.getDay() + " " 
+    + "-" + currentdate.getDate() + " " 
     + currentdate.getHours() + ":" 
     + currentdate.getMinutes() + ":" + currentdate.getSeconds();
     return datetime
