@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin update user's account</title>
+    <link rel="icon" type="image/x-icon" href="../logo/favicon.ico">
+    <link rel="stylesheet" href="../style/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../style/users.css">
+    <link rel="stylesheet" href="../style/flex.css">
+    <link rel="stylesheet" href="../style/sticky.css">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="row heading text-center" style="background-color: #5800bb;">
+                <div class="col-md-3" >
+            <a href="/g65102/main"><img class="logo" src="../img/Logo_side_full.png" alt="logo"></a>
+                </div>
+                <div class="col-md-6">
+                    <h1 class="head-text">UP LOST AND FOUND</h1>
+                </div>
+            </div>
+            <nav class="row navbar navbar-expand-lg navbar-light " style="background-color: #eba800;">
+                <div class="container-fluid">
+                    <button class="navbar-brand navbar-toggler d-block" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#side-menu" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <a class="navbar-brand home" href="/g65102/main">Home</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item item">
+                                <a class="nav-link" href="/g65102/member">Your account</a>
+                            </li>
+                            <li class="nav-item item">
+                                <a class="nav-link" href="/g65102/admin">Admin page</a>
+                            </li>
+                            <li class="nav-item item">
+                                <a class="nav-link" href="/g65102/contact">Contact us</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <input class="form-control me-2 d-flex" type="text" id="myInput" onkeyup="myFunction()"
+                        placeholder="Search" style="width:20em; border-radius: 40px;">
+                </div>
+            </nav>
+        </header>
+        <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
+        <div class="offcanvas offcanvas-menu offcanvas-start" tabindex="-1" id="side-menu" aria-labelledby="side-menu">
+            <div class="offcanvas-header">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="/g65102/member"><img style="border-radius:50%;" id="user-image"
+                                src="/{{#user}}{{userImage}}{{/user}}"></a>
+                    </div>
+                    <div class="col-md-6 text-black-50 text-end">
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <h3 style="margin: 10px;">{{#user}}{{username}}{{/user}}</h3>
+                </div>
+            </div>
+            <div class="offcanvas-body">
+                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/member'">Your
+                    Account</button>
+                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/logout'">Log
+                    out</button>
+            </div>
+        </div>
+        <div class="row aside" id="show-info">
+            <div class="col-3 side side1" id="side-menu" style="width:20em;">
+                {{#user}}
+                    <div class="row showuser">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img id="user-image" src="/{{userImage}}" alt="user-profile"
+                                    style="border-radius:50%; margin: 5px;">
+                            </div>
+                            <div class="col-md-9">
+                                <h5 style="margin: 25px;">{{username}}</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" style="margin:5px">
+                                <p id="score">score: {{avgScore}}/5</p>
+
+                                <p>User info</p>
+                                <div style="color:rgb(0,0,0,0.6);">
+                                    <p>ID: {{studentID}}</p>
+                                    <p>Name: {{firstname}} {{lastname}}</p>
+                                    <p>Faculty: {{faculty}} Major: {{major}}</p>
+                                </div>
+
+                                <p>Contact</p>
+                                <div style="color:rgb(0,0,0,0.6);">
+                                    <p>Facebook: {{facebook}}</p>
+                                    <p>Instagram: {{instagram}}</p>
+                                    <p>X: {{x}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="console.log({{userID}})" class="btn btn-primary"
+                            data-bs-toggle="modal" data-bs-target="#editProfile">
+                            Edit profile
+                        </button>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade " id="editProfile" tabindex="-1" aria-labelledby="editProfileModal"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editProfileModal">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/g65102/editProfileForAdmin" enctype="multipart/form-data"
+                                        id="updateProfile" method="post">
+                                        <input type="hidden" id="userID" name="userID" value="{{userID}}" required>
+                                        <div class="form-row mb-3">
+                                            <div class="form-input">
+                                                <div class="preview">
+                                                    <img id="show-profile" src="/{{userImage}}"
+                                                        style="border-radius:50%;">
+                                                </div>
+                                                <label for="profile">Upload profile</label>
+                                                <input type="file" name="profile" id="profile" accept="image/*"
+                                                    onchange="showPreview(event);">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label for="username">Username:</label>
+                                                <input type="text" name="username" id="username" class="form-control"
+                                                    value="{{username}}" placeholder="Username">
+                                            </div>
+                                            <div class="col">
+                                                <label for="username">Email:</label>
+                                                <input type="email" name="email" id="email" class="form-control"
+                                                    value="{{email}}" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label for="username">Student ID:</label>
+                                                <input type="text" name="studentid" id="studentid" class="form-control"
+                                                    value="{{studentID}}" placeholder="Student ID">
+                                            </div>
+                                            <div class="col">
+                                                <label for="username">Firstname:</label>
+                                                <input type="text" name="firstname" id="firstname" class="form-control"
+                                                    value="{{firstname}}" placeholder="First name">
+                                            </div>
+                                            <div class="col">
+                                                <label for="username">Lastname:</label>
+                                                <input type="text" name="lastname" id="lastname" class="form-control"
+                                                    value="{{lastname}}" placeholder="Last name">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label for="username">Faculty:</label>
+                                                <input type="text" name="faculty" id="faculty" class="form-control"
+                                                    value="{{faculty}}" placeholder="Faculty">
+                                            </div>
+                                            <div class="col">
+                                                <label for="username">Major:</label>
+                                                <input type="text" name="major" id="major" class="form-control"
+                                                    value="{{major}}" placeholder="Major">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="username">Phonenumber:</label>
+                                            <input type="text" name="phonenumber" id="phonenumber" class="form-control"
+                                                value="{{phonenumber}}" placeholder="Phonenumber">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="username">Facebook:</label>
+                                            <input type="text" name="facebook" id="facebook" class="form-control"
+                                                value="{{facebook}}" placeholder="Facebook">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="username">Instagram:</label>
+                                            <input type="text" name="instagram" id="instagram" class="form-control"
+                                                value="{{instagram}}" placeholder="Instagram">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="username">X:</label>
+                                            <input type="text" name="x" id="x" class="form-control" value="{{x}}"
+                                                placeholder="X">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/user}}
+            </div>
+            <div class="col-9 main">
+                <div class="main-layout">
+
+                    <div class="col-11 main-layout text-center">
+                    <h1 id="no-post">There's no post here</h1>
+                        {{#results}}
+                            <div class="card main-layout text-center" id="stick2" style="width: 23rem;">
+                                <img class="card-img-top img" id="show-image" src="/{{image}}" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title username" id="username">{{username}}</h5>
+                                    <div>
+                                        <p class="text-center date" id="datetime" style="font-size:14px;">
+                                            {{detail_time}}</p>
+                                        <p class="card-text text-center detail" id="detail" style="height: 10em; ">
+                                            {{details}}</p>
+                                        <p id="card-status" class="card-text text-buttom status">{{status}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <form action="/g65102/updateUser" method="post">
+                                            <input type="hidden" name="dataID" value="{{dataID}}" required>
+                                            <button type="submit" class="btn btn-primary">
+                                                Edit <i class="bi bi-pen"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <form action="/g65102/seepost" method="post">
+                                            <input type="hidden" name="dataID" value="{{dataID}}" required>
+                                            <button type="submit" class="btn"
+                                                style="background-color:#8d38c9; color:white;">
+                                                See post
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <form action="/g65102/delete" method="post"
+                                            onsubmit="return confirm('Are you sure you want to delete?');">
+                                            <input type="hidden" name="dataID" value="{{dataID}}" required>
+                                            <button type="submit" class="btn btn-danger">
+                                                Delete <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        {{/results}}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="../style/stycky.js"></script>
+    <script>
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("show-profile");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+    </script>
+</body>
+
+</html>

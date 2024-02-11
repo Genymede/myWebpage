@@ -1,0 +1,133 @@
+.main-layout{
+    /* position: absolute; */
+    top:20%;
+}
+
+
+#stick1, #stick2, #stick3{
+    width:  100%;
+    /*height: 400px;*/
+    padding: 10px;
+    margin: 10px;
+    display: inline-block; 
+    border-radius: 5px;
+    word-wrap: break-word;
+}
+
+.head-text{
+    font-size:3em; 
+    margin-top:30px;
+}
+
+.adder{
+    width:  100px;
+    height: 100px;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block; 
+    border-radius: 5px;
+}
+
+#stick1{
+    position: relative;
+    background-color: rgb(202, 202, 202);
+}
+
+
+/* #adder{
+    background-color: rgb(217, 217, 217);
+    box-shadow: 5px 10px 10px rgb(125, 125, 125);
+} */
+
+.fstick{
+    margin-top: 30px;
+}
+
+.post-head{
+    text-align: left;
+}
+
+.home:hover{
+    text-decoration: underline;
+}
+.item:hover{
+    text-decoration: underline;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.offcanvas-button{
+    background-color: blueviolet;
+    color: white;
+}
+
+.offcanvas-button:hover{
+    background-color: rgb(108, 33, 178);
+    color: white;
+}
+
+.offcanvas-button:active{
+    background-color: rgb(108, 33, 178);
+    border: 3px rgba(137, 43, 226, 0.5);
+    color: white;
+}
+    
+.add-box{
+    height: 22em;
+    padding: auto;
+}
+
+.add{
+    position: absolute;
+    height: 18em;
+    width:  18em;
+    top: 50%;
+    margin-top: -9em;
+    left: 50%;
+    margin-left:-9em;
+    background-color: rgba(128, 128, 128, 0.4);
+    border-radius: 50%;
+}
+
+.add-icon{
+    font-size: 12em;
+    color: rgba(0, 0, 0, 0.3);
+
+}
+
+.logo{
+    height: 10em;
+    width:  10em;
+}
+
+#no-post{
+    font-size: 8em;
+    text-align: center;
+    color: rgb(128, 128, 128,0.5);
+}
+.head-text{
+    font-size: 4em;
+    font-weight: bold;
+    background: linear-gradient(to right,rgb(91, 67, 0),rgb(255, 218, 69),rgb(255, 255, 255),rgb(255, 218, 69),rgb(170, 124, 0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navbar{
+    padding: 10px;
+}
+/* #stick1:hover{
+    animation: anim 0.5s;
+    top: -10px;
+    box-shadow: 5px 15px 15px rgb(172, 0, 0);
+}
+
+@keyframes anim{
+    from{
+        top: 0px;
+        box-shadow: 0px 0px 0px rgb(172, 0, 0);
+    }
+    to{
+        top: -10px;
+        box-shadow: 5px 10px 10px rgb(172, 0, 0);
+    }
+} */

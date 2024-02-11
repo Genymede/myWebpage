@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add post</title>
+    <link rel="icon" type="image/x-icon" href="../logo/favicon.ico">
+    <link rel="stylesheet" href="../style/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../style/main.css">
+    <link rel="stylesheet" href="../style/sticky.css">
+
+</head>
+
+<body>
+    <div class="row header text-center" style="background-color: #5800bb;">
+        <div class="col-md-3" >
+            <a href="/g65102/main"><img class="logo" src="../img/Logo_side_full.png" alt="logo"></a>
+        </div>
+        <div class="col-md-6">
+            <h1 class="head-text">UP LOST AND FOUND</h1>
+        </div>
+    </div>
+    <nav class="row navbar navbar-expand-lg navbar-light " style="background-color: #eba800;">
+        <div class="container-fluid">
+            <button class="navbar-brand navbar-toggler d-block" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#side-menu" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <a class="navbar-brand home" href="/g65102/main">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item item">
+                        <a class="nav-link" href="/g65102/member">Your account</a>
+                    </li>
+                    <li class="nav-item item">
+                        <a class="nav-link" href="/g65102/contact">Contact us</a>
+                    </li>
+                </ul>
+
+            </div>
+            <input class="form-control me-2 d-flex" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search"
+                style="width:20em; border-radius: 40px;">
+        </div>
+    </nav>
+    <!-- <button class="btn btn-danger" data-bs-toggle="offcanvas" data-bs-target="#side-menu"><i class="bi bi-list"></i></button> -->
+    <div class="offcanvas offcanvas-menu offcanvas-start" tabindex="-1" id="side-menu" aria-labelledby="side-menu">
+        <div class="offcanvas-header">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="/g65102/member"><img style="border-radius:50%;" id="user-image"
+                            src="/{{#user}}{{userImage}}{{/user}}" alt="profile"></a>
+                </div>
+                <div class="col-md-6 text-black-50 text-end">
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <h3 style="margin: 10px;">{{#username}}{{.}}{{/username}}</h3>
+            </div>
+        </div>
+        <div class="offcanvas-body">
+            <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/member'">Your
+                Account</button> 
+            <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/logout'">Log out</button>
+        </div>
+    </div>
+
+    <div class="row aside">
+        <div class="col-2" id="side-menu"></div>
+        <div class="col-8">
+            <div class="main-layout">
+                <div class="row">
+                    <div class="container mt-5">
+                        <form action="/g65102/send" enctype="multipart/form-data" method="post">
+                            <div class=mb-3>
+                                <div class="preview">
+                                    <img id="show-image" src="/{{image}}">
+                                </div>
+                                <label for="dataImage">Upload image</label>
+                                <input type="file" name="dataImage" id="dataImage" accept="image/*"
+                                    onchange="showPreview(event);">
+                            </div>
+                            <div class="mb-3">
+                                <label for="details">Details</label>
+                                <textarea type="text-input" class="form-control" id="details" name="details"
+                                    style="height:10em;" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="detail_time" id="detail_time">Time:</label>
+                                <input type="datetime-local" class="form-control" name="detail_time" id="detail_time"
+                                    step="2" required>
+                            </div>
+                            <button type="submit" class="btn offcanvas-button" value="Submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../style/stycky.js"></script>
+    <script type="text/javascript">
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("show-image");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+    </script>
+</body>
+
+</html>
