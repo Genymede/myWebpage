@@ -49,30 +49,30 @@
                 </ul>
 
             </div>
-            
+
         </div>
     </nav>
     <div class="offcanvas offcanvas-menu offcanvas-start" tabindex="-1" id="side-menu" aria-labelledby="side-menu">
-            <div class="offcanvas-header">
-                <div class="row">
-                    <div class="col-md-6">
-                        <a href="/g65102/member"><img style="border-radius:50%;" id="user-image"
-                                src="/{{#watcher}}{{userImage}}{{/watcher}}"></a>
-                    </div>
-                    <div class="col-md-6 text-black-50 text-end">
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                            aria-label="Close"></button>
-                    </div>
-                    <h3 style="margin: 10px;">{{#watcher}}{{username}}{{/watcher}}</h3>
+        <div class="offcanvas-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="/g65102/member"><img style="border-radius:50%;" id="user-image"
+                            src="/{{#watcher}}{{userImage}}{{/watcher}}"></a>
                 </div>
-            </div>
-            <div class="offcanvas-body">
-                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/member'">Your
-                    Account</button>
-                <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/logout'">Log
-                    out</button>
+                <div class="col-md-6 text-black-50 text-end">
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+                <h3 style="margin: 10px;">{{#watcher}}{{username}}{{/watcher}}</h3>
             </div>
         </div>
+        <div class="offcanvas-body">
+            <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/member'">Your
+                Account</button>
+            <button class="menu-button btn offcanvas-button" onclick="window.location.href='/g65102/logout'">Log
+                out</button>
+        </div>
+    </div>
     <div class="row aside">
         <div class="col-2" id="side-menu"></div>
         <div class="col-8">
@@ -102,7 +102,7 @@
                                 <option>Returned</option>
                                 <option>Lost</option>
                             </select>
-                            <button type="submit" class="btn offcanvas-button" value="Submit">Update</button>    
+                            <button type="submit" class="btn offcanvas-button" value="Submit">Update</button>
                         </form>
                     </div>
                 </div>
@@ -119,7 +119,6 @@
                 preview.style.display = "block";
             }
         }
-        
     </script>
 </body>
 
