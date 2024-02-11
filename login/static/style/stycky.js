@@ -74,6 +74,5 @@ noTZ.forEach(element => {
     time = tz[i].innerText
     console.log(time)
     tz[i].innerText = time.split('GMT+0700 (เวลาอินโดจีน)')
-    
     i++
 })

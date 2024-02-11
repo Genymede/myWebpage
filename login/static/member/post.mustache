@@ -123,17 +123,29 @@
     </div>
     <!--จบ-->
 
-    <script src="../style/stycky.js"></script>
+    {{! <script src="../style/stycky.js"></script> }}
     <script>
         img = document.getElementById('imgpost')
         console.log(img.src)
         src = img.getAttribute('src')
         console.log(src)
-        if (src == '/') {
+        if (src == '/' || src == '/img/white_bg.jpg') {
             img.style.display = "none"
         } else {
             console.log('src')
         }
+
+        //tz = document.getElementsByClassName('date')
+        noTZ = document.querySelectorAll("#datetime")
+        console.log(noTZ[0].innerText)
+        noTZ[0].innerText = noTZ[0].innerText.split('GMT+0700 (เวลาอินโดจีน)')
+        //i=0
+        //noTZ.forEach(element => {
+        //    time = tz[i].innerText
+        //    console.log(time)
+        //    tz[i].innerText = time.split('GMT+0700 (เวลาอินโดจีน)')
+        //    i++
+        //})
     </script>
 
 </body>
